@@ -1,0 +1,14 @@
+﻿.vscode
+CMakeFiles
+Makefile
+*.cmake
+CMakeCache.txt
+qmlfmt
+*_autogen
+*.a
+test/testrunner
+
+# Submodules
+json
+qt-creator
+ordered-map
