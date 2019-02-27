@@ -14,9 +14,9 @@
         names of its contributors may be used to endorse or promote products
         derived from this software without specific prior written permission.
 
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
   DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
   DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
@@ -26,49 +26,45 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <memory>
 #include <QObject>
 #include <QProcess>
+#include <memory>
 
-class TestRunner : public QObject
-{
-    Q_OBJECT
+class TestRunner : public QObject {
+  Q_OBJECT
 
 public:
-    TestRunner(const QString& qmlfmtPath, QObject *parent = nullptr);
+  TestRunner(const QString &qmlfmtPath, QObject *parent = nullptr);
 
 private:
-    typedef QPair<QString, QString> TestInput;
-    std::unique_ptr<QProcess> m_process;
-    QList<TestInput> m_testFiles;
-    QString m_qmlfmtPath;
+  typedef QPair<QString, QString> TestInput;
+  std::unique_ptr<QProcess> m_process;
+  QList<TestInput> m_testFiles;
+  QString m_qmlfmtPath;
 
-    void prepareTestData();
+  void prepareTestData();
 
-    QString readFile(const QString& fileName);
+  QString readFile(const QString &fileName);
 
-    QString readOutputStream(bool fromStdError);
+  QString readOutputStream(bool fromStdError);
 
-    QString getTemporaryFileName();
+  QString getTemporaryFileName();
 
 private slots:
-    void init();
+  void init();
 
-    void PrintWithDifferences();
-    void PrintWithDifferences_data() { prepareTestData(); }
+  void PrintWithDifferences();
+  void PrintWithDifferences_data() { prepareTestData(); }
 
-    void DiffWithFormatted();
-    void DiffWithFormatted_data() { prepareTestData(); }
+  void FormatFileOverwrite();
+  void FormatFileOverwrite_data() { prepareTestData(); }
 
-    void FormatFileOverwrite();
-    void FormatFileOverwrite_data() { prepareTestData(); }
+  void FormatFileToStdOut();
+  void FormatFileToStdOut_data() { prepareTestData(); }
 
-    void FormatFileToStdOut();
-    void FormatFileToStdOut_data() { prepareTestData(); }
+  void FormatStdInToStdOut();
+  void FormatStdInToStdOut_data() { prepareTestData(); }
 
-    void FormatStdInToStdOut();
-    void FormatStdInToStdOut_data() { prepareTestData(); }
-
-    void PrintFolderWithDifferences();
-    void PrintMultipleFilesWithDifferences();
+  void PrintFolderWithDifferences();
+  void PrintMultipleFilesWithDifferences();
 };

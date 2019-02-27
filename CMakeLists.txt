@@ -26,7 +26,7 @@
 
 cmake_minimum_required(VERSION 3.1)
 
-project(qmlfmt)
+project(qml-parser)
 
 cmake_policy(SET CMP0022 NEW)
 
@@ -37,8 +37,8 @@ set(CMAKE_AUTOMOC true)
 set(CMAKE_INCLUDE_CURRENT_DIR true)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 
-set(QMLFMT_VERSION 0.0 CACHE STRING "Version of qmlfmt")
-add_definitions(-DQMLFMT_VERSION="${BUILD_VERSION}")
+set(QML_PARSER_VERSION 0.0 CACHE STRING "Version of qml-parser")
+add_definitions(-DQML_PARSER_VERSION="${BUILD_VERSION}")
 
 IF(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Release CACHE STRING
@@ -52,13 +52,33 @@ add_subdirectory(qmljs)
 add_subdirectory(json)
 add_subdirectory(ordered-map)
 
-add_executable(qmlfmt main.cpp qmlfmt.cpp qmlfmt.h)
-target_link_libraries(qmlfmt qmljs nlohmann_json::nlohmann_json tsl::ordered_map Qt5::Core)
+add_executable(
+    qml-parser
+    main.cpp
+    parser.cpp
+    parser.h
+    AstGenerator.cpp
+    AstGenerator.h
+    AstGeneratorBase.cpp
+    AstGeneratorBase.h
+    AstGeneratorJavascriptBlock.cpp
+    AstGeneratorJavascriptBlock.h
+    Location.cpp
+    Location.h
+)
+
+target_link_libraries(
+    qml-parser
+    qmljs
+    nlohmann_json::nlohmann_json
+    tsl::ordered_map
+    Qt5::Core
+)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-	target_compile_options(qmlfmt PRIVATE -Wall)
+	target_compile_options(qml-parser PRIVATE -Wall)
 elseif(MSVC)
-	target_compile_options(qmlfmt PRIVATE -analyze -W3 -WX -wd28182 -wd6308 -wd6385 -wd6011)
+	target_compile_options(qml-parser PRIVATE -analyze -W3 -WX -wd28182 -wd6308 -wd6385 -wd6011)
 endif()
 
 option(BUILD_TESTING "Build the testing tree." ON)
@@ -66,7 +86,7 @@ option(BUILD_TESTING "Build the testing tree." ON)
 if(BUILD_TESTING)
 	enable_testing()
 	add_subdirectory(test)
-    add_test(NAME qmlfmt-test COMMAND testrunner $<TARGET_FILE:qmlfmt>)
+    add_test(NAME qml-parser-test COMMAND testrunner $<TARGET_FILE:qml-parser>)
     add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIG> --verbose --output-on-failure)
-    add_dependencies(check qmlfmt testrunner)
+    add_dependencies(check qml-parser testrunner)
 endif()

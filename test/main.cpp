@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015-2018, Jesper Hellesø Hansen
+Copyright (c) 2015-2018, Jesper Hellesï¿½ Hansen
 jesperhh@gmail.com
 All rights reserved.
 
@@ -26,18 +26,18 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtTest/QtTest>
 #include "testrunner.h"
+#include <QtTest/QtTest>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication app(argc, argv);
-    
-    if (app.arguments().size() < 2)
-      return 1;
+int main(int argc, char *argv[]) {
+  QCoreApplication app(argc, argv);
 
-    TestRunner tc(app.arguments().at(argc - 1));
-    QTEST_SET_MAIN_SOURCE_PATH;
-    // Trim off the argument containing qmlfmt path, QTest will not understand it.
-    return QTest::qExec(&tc, argc - 1, argv);
+  if (app.arguments().size() < 2)
+    return 1;
+
+  TestRunner tc(app.arguments().at(argc - 1));
+  QTEST_SET_MAIN_SOURCE_PATH;
+  // Trim off the argument containing qml-parser path, QTest will not understand
+  // it.
+  return QTest::qExec(&tc, argc - 1, argv);
 }

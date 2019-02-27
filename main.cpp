@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015-2018, Jesper Hellesø Hansen
+Copyright (c) 2015-2018, Jesper Hellesï¿½ Hansen
 jesperhh@gmail.com
 All rights reserved.
 
@@ -26,84 +26,90 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtCore>
-#include <QCoreApplication>
-#include <QCommandLineParser>
 #include <QCommandLineOption>
-#include "qmlfmt.h"
+#include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QtCore>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName("qmlfmt");
+#include "parser.h"
 
-#ifdef QMLFMT_VERSION
-    QCoreApplication::setApplicationVersion(QMLFMT_VERSION);
-#endif // QMLFMT_VERSION
-    
-    QCommandLineParser parser;
-    parser.setApplicationDescription(
-        "qmlfmt formats QML files."
-        "\n"
-        "Without an explicit path, it processes the standard input. "
-        "Given a file, it operates on that file; given a directory, it operates on all qml files in that directory, recursively. "
-        "(Files starting with a period are ignored.) By default, qmlfmt prints the reformatted sources to standard output."
-    );
+int main(int argc, char *argv[]) {
+  QCoreApplication app(argc, argv);
+  QCoreApplication::setApplicationName("qml-parser");
 
-    QCommandLineOption diffOption("d",
-        "Do not print reformatted sources to standard output. "
-        "If a file\'s formatting is different than qmlfmt\'s, print diffs "
-        "to standard output.");
+#ifdef QML_PARSER_VERSION
+  QCoreApplication::setApplicationVersion(QML_PARSER_VERSION);
+#endif // QML_PARSER_VERSION
 
-    QCommandLineOption errorOption("e", "Print all errors.");
+  QCommandLineParser parser;
+  parser.setApplicationDescription(
+      "qml-parser generates AST document from QML files."
+      "\n"
+      "Without an explicit path, it processes the standard input. "
+      "Given a file, it operates on that file; given a directory, it operates "
+      "on all qml files in that directory, recursively. "
+      "(Files starting with a period are ignored.) By default, qmlfmt prints "
+      "the reformatted sources to standard output.");
 
-    QCommandLineOption listOption("l",
-        "Do not print reformatted sources to standard output. "
-        "If a file\'s formatting is different from qmlfmt\'s, print its name "
-        "to standard output.");
+  QCommandLineOption diffOption(
+      "d", "Do not print reformatted sources to standard output. "
+           "If a file\'s formatting is different than qmlfmt\'s, print diffs "
+           "to standard output.");
 
-    QCommandLineOption overwriteOption("w",
-        "Do not print reformatted sources to standard output. "
-        "If a file\'s formatting is different from qmlfmt\'s, overwrite it "
-        "with qmlfmt\'s version.");
+  QCommandLineOption errorOption("e", "Print all errors.");
 
-    QMap<QmlFmt::Option, QCommandLineOption> optionMap = {
-        { QmlFmt::Option::PrintDiff, diffOption },
-        { QmlFmt::Option::ListFileName, listOption },
-        { QmlFmt::Option::PrintError, errorOption },
-        { QmlFmt::Option::OverwriteFile, overwriteOption }
-    };
+  QCommandLineOption listOption(
+      "l",
+      "Do not print reformatted sources to standard output. "
+      "If a file\'s formatting is different from qmlfmt\'s, print its name "
+      "to standard output.");
 
-    // set up options
-    parser.addHelpOption();
-    parser.addVersionOption();
-    parser.addOptions(optionMap.values());
-    parser.addPositionalArgument("path", "file or directory to process. If not set, qmlfmt will process the standard input.");
+  QCommandLineOption overwriteOption(
+      "w", "Do not print reformatted sources to standard output. "
+           "If a file\'s formatting is different from qmlfmt\'s, overwrite it "
+           "with qmlfmt\'s version.");
 
-    // process command line arguments
-    parser.process(app);
+  QMap<Parser::Option, QCommandLineOption> optionMap = {
+      {Parser::Option::PrintDiff, diffOption},
+      {Parser::Option::ListFileName, listOption},
+      {Parser::Option::PrintError, errorOption},
+      {Parser::Option::OverwriteFile, overwriteOption}};
 
-    // validate arguments
-    if ((parser.isSet(overwriteOption) || parser.isSet(listOption)) && parser.positionalArguments().count() == 0)
-    {
-        QTextStream(stderr) << "Cannot combine -" << overwriteOption.names().first() << " and -" << listOption.names().first()
-            << " with standard input\n";
-        return 1;
-    }
-    else if (parser.isSet(diffOption) + parser.isSet(overwriteOption) + parser.isSet(listOption) > 1)
-    {
-        QTextStream(stderr) << "-" << diffOption.names().first() << ", -" << overwriteOption.names().first() << " and -" <<
-            listOption.names().first() << " are mutually exclusive\n";
-        return 1;
-    }
+  // set up options
+  parser.addHelpOption();
+  parser.addVersionOption();
+  parser.addOptions(optionMap.values());
+  parser.addPositionalArgument("path",
+                               "file or directory to process. If not set, "
+                               "qmlfmt will process the standard input.");
 
-    QmlFmt::Options options;
-    for (auto kvp = optionMap.constKeyValueBegin(); kvp != optionMap.constKeyValueEnd(); ++kvp)
-    {
-        if (parser.isSet((*kvp).second))
-            options |= (*kvp).first;
-    }
+  // process command line arguments
+  parser.process(app);
 
-    QmlFmt qmlFmt(options);
-    return qmlFmt.Run(parser.positionalArguments());
+  // validate arguments
+  if ((parser.isSet(overwriteOption) || parser.isSet(listOption)) &&
+      parser.positionalArguments().count() == 0) {
+    QTextStream(stderr) << "Cannot combine -" << overwriteOption.names().first()
+                        << " and -" << listOption.names().first()
+                        << " with standard input\n";
+    return 1;
+  } else if (parser.isSet(diffOption) + parser.isSet(overwriteOption) +
+                 parser.isSet(listOption) >
+             1) {
+    QTextStream(stderr) << "-" << diffOption.names().first() << ", -"
+                        << overwriteOption.names().first() << " and -"
+                        << listOption.names().first()
+                        << " are mutually exclusive\n";
+    return 1;
+  }
+
+  Parser::Options options;
+  for (auto kvp = optionMap.constKeyValueBegin();
+       kvp != optionMap.constKeyValueEnd(); ++kvp) {
+    if (parser.isSet((*kvp).second))
+      options |= (*kvp).first;
+  }
+
+  Parser qmlFmt(options);
+  return qmlFmt.Run(parser.positionalArguments());
 }

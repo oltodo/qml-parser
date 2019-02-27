@@ -122,26 +122,6 @@ void TestRunner::PrintWithDifferences() {
   }
 }
 
-void TestRunner::DiffWithFormatted() {
-  QFETCH(QString, input);
-  QFETCH(QString, expected);
-  QFETCH(bool, hasError);
-
-  m_process->setArguments({input, "-d", "-e"});
-  m_process->start();
-  QString diff = readOutputStream(hasError);
-  if (hasError) {
-    QCOMPARE(diff, readFile(expected));
-  } else {
-    diff_match_patch differ;
-    QString unformatted = readFile(input);
-    QString formatted = readFile(expected);
-    QList<Patch> patch = differ.patch_fromText(diff);
-    QString patchedUnformatted = differ.patch_apply(patch, unformatted).first;
-    QCOMPARE(patchedUnformatted, formatted);
-  }
-}
-
 void TestRunner::FormatFileOverwrite() {
   QFETCH(QString, input);
   QFETCH(QString, expected);

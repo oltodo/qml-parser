@@ -1,229 +1,225 @@
 {
-  "kind": "Program",
-  "loc": "undefined",
   "children": [
     {
+      "identifier": "QtQuick",
       "kind": "Import",
       "loc": {
-        "start": {
-          "offset": 0,
-          "line": 1,
-          "column": 1
-        },
         "end": {
-          "offset": 18,
+          "column": 16,
           "line": 1,
-          "column": 16
+          "offset": 18
+        },
+        "start": {
+          "column": 1,
+          "line": 1,
+          "offset": 0
         }
       },
-      "identifier": "QtQuick",
       "version": "2.0"
     },
     {
-      "kind": "ObjectDefinition",
-      "identifier": "Rectangle",
       "children": [
         {
-          "kind": "Signal",
+          "body": "signal clicked",
           "identifier": "clicked",
+          "kind": "Signal",
           "loc": {
-            "start": {
-              "offset": 614,
-              "line": 19,
-              "column": 5
-            },
             "end": {
-              "offset": 628,
+              "column": 12,
               "line": 19,
-              "column": 12
+              "offset": 628
+            },
+            "start": {
+              "column": 5,
+              "line": 19,
+              "offset": 614
             }
-          },
-          "body": "signal clicked"
+          }
         },
         {
-          "kind": "Signal",
+          "body": "signal hovered",
           "identifier": "hovered",
+          "kind": "Signal",
           "loc": {
-            "start": {
-              "offset": 633,
-              "line": 20,
-              "column": 5
-            },
             "end": {
-              "offset": 647,
+              "column": 12,
               "line": 20,
-              "column": 12
+              "offset": 647
+            },
+            "start": {
+              "column": 5,
+              "line": 20,
+              "offset": 633
             }
-          },
-          "body": "signal hovered"
+          }
         },
         {
-          "kind": "Signal",
+          "body": "signal actionPerformed(\n        string action,\n        var actionResult\n    )",
           "identifier": "actionPerformed",
+          "kind": "Signal",
+          "loc": {
+            "end": {
+              "column": 5,
+              "line": 1920,
+              "offset": 731
+            },
+            "start": {
+              "column": 5,
+              "line": 21,
+              "offset": 654
+            }
+          },
           "parameters": [
             {
-              "type": "string",
-              "identifier": "action"
+              "identifier": "action",
+              "type": "string"
             },
             {
-              "type": "var",
-              "identifier": "actionResult"
+              "identifier": "actionResult",
+              "type": "var"
             }
-          ],
-          "loc": {
-            "start": {
-              "offset": 654,
-              "line": 21,
-              "column": 5
-            },
-            "end": {
-              "offset": 731,
-              "line": 24,
-              "column": 5
-            }
-          },
-          "body": "signal actionPerformed(\n        string action,\n        var actionResult\n    )"
+          ]
         },
         {
+          "identifier": "someNumber",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 737,
-              "line": 26,
-              "column": 5
-            },
             "end": {
-              "offset": 761,
+              "column": 28,
               "line": 26,
-              "column": 28
+              "offset": 761
+            },
+            "start": {
+              "column": 5,
+              "line": 26,
+              "offset": 737
             }
           },
           "type": "var",
-          "identifier": "someNumber",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 762,
-                "line": 26,
-                "column": 30
-              },
               "end": {
-                "offset": 765,
+                "column": 30,
                 "line": 26,
-                "column": 30
+                "offset": 765
+              },
+              "start": {
+                "column": 30,
+                "line": 26,
+                "offset": 762
               }
             },
             "value": "1.5"
           }
         },
         {
+          "identifier": "someList",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 770,
-              "line": 27,
-              "column": 5
-            },
             "end": {
-              "offset": 792,
+              "column": 26,
               "line": 27,
-              "column": 26
+              "offset": 792
+            },
+            "start": {
+              "column": 5,
+              "line": 27,
+              "offset": 770
             }
           },
           "type": "var",
-          "identifier": "someList",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 793,
-                "line": 27,
-                "column": 28
-              },
               "end": {
-                "offset": 816,
+                "column": 50,
                 "line": 27,
-                "column": 50
+                "offset": 816
+              },
+              "start": {
+                "column": 28,
+                "line": 27,
+                "offset": 793
               }
             },
             "value": "[1, 2, \"three\", \"four\"]"
           }
         },
         {
+          "identifier": "someObject",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 821,
-              "line": 28,
-              "column": 5
-            },
             "end": {
-              "offset": 845,
+              "column": 28,
               "line": 28,
-              "column": 28
+              "offset": 845
+            },
+            "start": {
+              "column": 5,
+              "line": 28,
+              "offset": 821
             }
           },
           "type": "var",
-          "identifier": "someObject",
           "value": [
             {
               "children": [
                 {
-                  "kind": "Property",
                   "identifier": "width",
+                  "kind": "Property",
                   "value": {
                     "kind": "JavascriptBlock",
                     "loc": {
-                      "start": {
-                        "offset": 865,
-                        "line": 28,
-                        "column": 49
-                      },
                       "end": {
-                        "offset": 869,
+                        "column": 52,
                         "line": 28,
-                        "column": 52
+                        "offset": 869
+                      },
+                      "start": {
+                        "column": 49,
+                        "line": 28,
+                        "offset": 865
                       }
                     },
                     "value": "100;"
                   }
                 },
                 {
-                  "kind": "Property",
                   "identifier": "height",
+                  "kind": "Property",
                   "value": {
                     "kind": "JavascriptBlock",
                     "loc": {
-                      "start": {
-                        "offset": 878,
-                        "line": 28,
-                        "column": 62
-                      },
                       "end": {
-                        "offset": 882,
+                        "column": 65,
                         "line": 28,
-                        "column": 65
+                        "offset": 882
+                      },
+                      "start": {
+                        "column": 62,
+                        "line": 28,
+                        "offset": 878
                       }
                     },
                     "value": "100;"
                   }
                 },
                 {
-                  "kind": "Property",
                   "identifier": "color",
+                  "kind": "Property",
                   "value": {
                     "kind": "JavascriptBlock",
                     "loc": {
-                      "start": {
-                        "offset": 890,
-                        "line": 28,
-                        "column": 74
-                      },
                       "end": {
-                        "offset": 895,
+                        "column": 74,
                         "line": 28,
-                        "column": 74
+                        "offset": 895
+                      },
+                      "start": {
+                        "column": 74,
+                        "line": 28,
+                        "offset": 890
                       }
                     },
                     "value": "\"red\""
@@ -234,359 +230,363 @@
           ]
         },
         {
+          "identifier": "someColor",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 902,
-              "line": 29,
-              "column": 5
-            },
             "end": {
-              "offset": 927,
+              "column": 29,
               "line": 29,
-              "column": 29
+              "offset": 927
+            },
+            "start": {
+              "column": 5,
+              "line": 29,
+              "offset": 902
             }
           },
           "type": "color",
-          "identifier": "someColor",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 928,
-                "line": 29,
-                "column": 31
-              },
               "end": {
-                "offset": 934,
+                "column": 31,
                 "line": 29,
-                "column": 31
+                "offset": 934
+              },
+              "start": {
+                "column": 31,
+                "line": 29,
+                "offset": 928
               }
             },
             "value": "\"blue\""
           }
         },
         {
+          "default": true,
+          "identifier": "someString",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 964,
-              "line": 32,
-              "column": 5
-            },
             "end": {
-              "offset": 996,
+              "column": 36,
               "line": 32,
-              "column": 36
+              "offset": 996
+            },
+            "start": {
+              "column": 5,
+              "line": 32,
+              "offset": 964
             }
           },
-          "default": true,
           "type": "var",
-          "identifier": "someString",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 997,
-                "line": 32,
-                "column": 38
-              },
               "end": {
-                "offset": 1002,
+                "column": 38,
                 "line": 32,
-                "column": 38
+                "offset": 1002
+              },
+              "start": {
+                "column": 38,
+                "line": 32,
+                "offset": 997
               }
             },
             "value": "\"abc\""
           }
         },
         {
+          "identifier": "someBool",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 1034,
-              "line": 35,
-              "column": 5
-            },
             "end": {
-              "offset": 1065,
+              "column": 35,
               "line": 35,
-              "column": 35
+              "offset": 1065
+            },
+            "start": {
+              "column": 5,
+              "line": 35,
+              "offset": 1034
             }
           },
           "readonly": true,
           "type": "var",
-          "identifier": "someBool",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 1066,
-                "line": 35,
-                "column": 37
-              },
               "end": {
-                "offset": 1070,
+                "column": 37,
                 "line": 35,
-                "column": 37
+                "offset": 1070
+              },
+              "start": {
+                "column": 37,
+                "line": 35,
+                "offset": 1066
               }
             },
             "value": "true"
           }
         },
         {
+          "identifier": "siblingRects",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 1076,
-              "line": 37,
-              "column": 5
-            },
             "end": {
-              "offset": 1113,
+              "column": 30,
               "line": 37,
-              "column": 30
+              "offset": 1113
+            },
+            "start": {
+              "column": 5,
+              "line": 37,
+              "offset": 1076
             }
           },
-          "typeModifier": "list",
           "type": "Rectangle",
-          "identifier": "siblingRects"
+          "typeModifier": "list"
         },
         {
+          "identifier": "childRects",
           "kind": "Property",
           "loc": {
-            "start": {
-              "offset": 1119,
-              "line": 39,
-              "column": 5
-            },
             "end": {
-              "offset": 1155,
+              "column": 40,
               "line": 39,
-              "column": 40
+              "offset": 1155
+            },
+            "start": {
+              "column": 5,
+              "line": 39,
+              "offset": 1119
             }
           },
-          "typeModifier": "list",
           "type": "Rectangle",
-          "identifier": "childRects",
+          "typeModifier": "list",
           "value": [
             {
-              "kind": "ArrayBinding",
-              "identifier": "childRects",
               "children": [
                 {
-                  "kind": "ObjectDefinition",
-                  "identifier": "Rectangle",
                   "children": [
                     {
-                      "kind": "Property",
                       "identifier": "color",
+                      "kind": "Property",
                       "value": {
                         "kind": "JavascriptBlock",
                         "loc": {
-                          "start": {
-                            "offset": 1185,
-                            "line": 40,
-                            "column": 28
-                          },
                           "end": {
-                            "offset": 1190,
+                            "column": 28,
                             "line": 40,
-                            "column": 28
+                            "offset": 1190
+                          },
+                          "start": {
+                            "column": 28,
+                            "line": 40,
+                            "offset": 1185
                           }
                         },
                         "value": "\"red\""
                       }
                     }
-                  ]
+                  ],
+                  "identifier": "Rectangle",
+                  "kind": "ObjectDefinition"
                 },
                 {
-                  "kind": "ObjectDefinition",
-                  "identifier": "Rectangle",
                   "children": [
                     {
-                      "kind": "Property",
                       "identifier": "color",
+                      "kind": "Property",
                       "value": {
                         "kind": "JavascriptBlock",
                         "loc": {
-                          "start": {
-                            "offset": 1221,
-                            "line": 41,
-                            "column": 28
-                          },
                           "end": {
-                            "offset": 1227,
+                            "column": 28,
                             "line": 41,
-                            "column": 28
+                            "offset": 1227
+                          },
+                          "start": {
+                            "column": 28,
+                            "line": 41,
+                            "offset": 1221
                           }
                         },
                         "value": "\"blue\""
                       }
                     }
-                  ]
+                  ],
+                  "identifier": "Rectangle",
+                  "kind": "ObjectDefinition"
                 }
-              ]
+              ],
+              "identifier": "childRects",
+              "kind": "ArrayBinding"
             }
           ]
         },
         {
-          "kind": "Property",
           "identifier": "width",
+          "kind": "Property",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 1247,
-                "line": 44,
-                "column": 12
-              },
               "end": {
-                "offset": 1251,
+                "column": 15,
                 "line": 44,
-                "column": 15
+                "offset": 1251
+              },
+              "start": {
+                "column": 12,
+                "line": 44,
+                "offset": 1247
               }
             },
             "value": "200;"
           }
         },
         {
-          "kind": "Property",
           "identifier": "height",
+          "kind": "Property",
           "value": {
             "kind": "JavascriptBlock",
             "loc": {
-              "start": {
-                "offset": 1260,
-                "line": 44,
-                "column": 25
-              },
               "end": {
-                "offset": 1263,
+                "column": 25,
                 "line": 44,
-                "column": 25
+                "offset": 1263
+              },
+              "start": {
+                "column": 25,
+                "line": 44,
+                "offset": 1260
               }
             },
             "value": "200"
           }
         },
         {
-          "kind": "Function",
+          "body": "function greetings(name) {\n        console.log('Hello ' + name + '!');\n    }",
           "identifier": "greetings",
+          "kind": "Function",
           "loc": {
-            "start": {
-              "offset": 1269,
-              "line": 46,
-              "column": 5
-            },
             "end": {
-              "offset": 1345,
+              "column": 5,
               "line": 48,
-              "column": 5
+              "offset": 1345
+            },
+            "start": {
+              "column": 5,
+              "line": 46,
+              "offset": 1269
             }
-          },
-          "body": "function greetings(name) {\n        console.log('Hello ' + name + '!');\n    }"
+          }
         },
         {
-          "kind": "ObjectDefinition",
-          "identifier": "NumberAnimation",
-          "on": "x",
-          "loc": {
-            "start": {
-              "offset": 1351,
-              "line": 50,
-              "column": 5
-            },
-            "end": {
-              "offset": 1468,
-              "line": 55,
-              "column": 5
-            }
-          },
           "children": [
             {
-              "kind": "Property",
               "identifier": "from",
+              "kind": "Property",
               "value": {
                 "kind": "JavascriptBlock",
                 "loc": {
-                  "start": {
-                    "offset": 1388,
-                    "line": 51,
-                    "column": 15
-                  },
                   "end": {
-                    "offset": 1389,
+                    "column": 15,
                     "line": 51,
-                    "column": 15
+                    "offset": 1389
+                  },
+                  "start": {
+                    "column": 15,
+                    "line": 51,
+                    "offset": 1388
                   }
                 },
                 "value": "0"
               }
             },
             {
-              "kind": "Property",
               "identifier": "to",
+              "kind": "Property",
               "value": {
                 "kind": "JavascriptBlock",
                 "loc": {
-                  "start": {
-                    "offset": 1402,
-                    "line": 52,
-                    "column": 13
-                  },
                   "end": {
-                    "offset": 1405,
+                    "column": 13,
                     "line": 52,
-                    "column": 13
+                    "offset": 1405
+                  },
+                  "start": {
+                    "column": 13,
+                    "line": 52,
+                    "offset": 1402
                   }
                 },
                 "value": "350"
               }
             },
             {
-              "kind": "Property",
               "identifier": "loops",
+              "kind": "Property",
               "value": {
                 "kind": "JavascriptBlock",
                 "loc": {
-                  "start": {
-                    "offset": 1421,
-                    "line": 53,
-                    "column": 16
-                  },
                   "end": {
-                    "offset": 1439,
+                    "column": 26,
                     "line": 53,
-                    "column": 26
+                    "offset": 1439
+                  },
+                  "start": {
+                    "column": 16,
+                    "line": 53,
+                    "offset": 1421
                   }
                 },
                 "value": "Animation.Infinite"
               }
             },
             {
-              "kind": "Property",
               "identifier": "duration",
+              "kind": "Property",
               "value": {
                 "kind": "JavascriptBlock",
                 "loc": {
-                  "start": {
-                    "offset": 1458,
-                    "line": 54,
-                    "column": 19
-                  },
                   "end": {
-                    "offset": 1462,
+                    "column": 19,
                     "line": 54,
-                    "column": 19
+                    "offset": 1462
+                  },
+                  "start": {
+                    "column": 19,
+                    "line": 54,
+                    "offset": 1458
                   }
                 },
                 "value": "2000"
               }
             }
-          ]
+          ],
+          "identifier": "NumberAnimation",
+          "kind": "ObjectDefinition",
+          "loc": {
+            "end": {
+              "column": 5,
+              "line": 55,
+              "offset": 1468
+            },
+            "start": {
+              "column": 5,
+              "line": 50,
+              "offset": 1351
+            }
+          },
+          "on": "x"
         }
-      ]
+      ],
+      "identifier": "Rectangle",
+      "kind": "ObjectDefinition"
     }
-  ]
+  ],
+  "kind": "Program",
+  "loc": "undefined"
 }

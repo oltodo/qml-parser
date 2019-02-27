@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015-2018, Jesper Hellesø Hansen
+Copyright (c) 2015-2018, Jesper Hellesï¿½ Hansen
 jesperhh@gmail.com
 All rights reserved.
 
@@ -25,23 +25,31 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#ifndef PARSER_H
+#define PARSER_H
 
 #include <QString>
 
-class QmlFmt
-{
+class Parser {
 public:
-    enum class Option { ListFileName = 0x1, OverwriteFile = 0x2, PrintError = 0x4, PrintDiff = 0x8};
-    Q_DECLARE_FLAGS(Options, Option)
+  enum class Option {
+    ListFileName = 0x1,
+    OverwriteFile = 0x2,
+    PrintError = 0x4,
+    PrintDiff = 0x8
+  };
+  Q_DECLARE_FLAGS(Options, Option)
 
-    QmlFmt(Options options);
-    
-    int Run();
-    int Run(QStringList paths);
+  Parser(Options options);
+
+  int Run();
+  int Run(QStringList paths);
 
 private:
-    Options m_options;
-    int InternalRun(QIODevice& input, const QString& path);
+  Options m_options;
+  int InternalRun(QIODevice &input, const QString &path);
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(QmlFmt::Options)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Parser::Options)
+
+#endif // PARSER_H
