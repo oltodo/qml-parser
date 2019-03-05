@@ -1,12 +1,11 @@
-#include <nlohmann/json.hpp>
 #include <qmljs/qmljsdocument.h>
 
 #include "AstGeneratorBase.h"
 #include "Location.h"
+#include "parser.h"
 
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 // int startColumn = 0;
 // int startLine = 0;

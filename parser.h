@@ -29,6 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define PARSER_H
 
 #include <QString>
+#include <nlohmann/json.hpp>
+#include <tsl/ordered_map.h>
+
+template <class Key, class T, class Ignore, class Allocator,
+          class Hash = std::hash<Key>, class KeyEqual = std::equal_to<Key>,
+          class AllocatorPair = typename std::allocator_traits<
+              Allocator>::template rebind_alloc<std::pair<Key, T>>,
+          class ValueTypeContainer =
+              std::vector<std::pair<Key, T>, AllocatorPair>>
+using ordered_map =
+    tsl::ordered_map<Key, T, Hash, KeyEqual, AllocatorPair, ValueTypeContainer>;
+
+namespace parser {
+using json = nlohmann::basic_json<ordered_map>;
+}
 
 class Parser {
 public:

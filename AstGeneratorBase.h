@@ -9,11 +9,11 @@
 #include <qmljs/qmljsdocument.h>
 
 #include "Location.h"
+#include "parser.h"
 
 using namespace std;
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 struct lineColumn {
   int line;

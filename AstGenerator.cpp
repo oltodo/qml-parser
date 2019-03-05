@@ -1,5 +1,4 @@
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <qmljs/parser/qmljsast_p.h>
 #include <qmljs/qmljsdocument.h>
 
@@ -7,11 +6,11 @@
 #include "AstGeneratorBase.h"
 #include "AstGeneratorJavascriptBlock.h"
 #include "Location.h"
+#include "parser.h"
 
 using namespace std;
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 void AstGenerator::accept(Node *node) { Node::accept(node, this); }
 
@@ -201,7 +200,6 @@ bool AstGenerator::visit(UiObjectBinding *node) {
   json item;
 
   if (node->hasOnToken) {
-    cout << "ok";
     item["kind"] = "ObjectDefinition";
     item["identifier"] = toString(node->qualifiedTypeNameId);
     item["on"] = toString(node->qualifiedId);

@@ -3,14 +3,13 @@
 #ifndef AST_GENERATOR_H
 #define AST_GENERATOR_H
 
-#include <nlohmann/json.hpp>
 #include <qmljs/qmljsdocument.h>
 
 #include "AstGeneratorBase.h"
+#include "parser.h"
 
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 class AstGenerator : protected AstGeneratorBase {
   using AstGeneratorBase::AstGeneratorBase;

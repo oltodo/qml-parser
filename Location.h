@@ -3,12 +3,13 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include <nlohmann/json.hpp>
 #include <qmljs/qmljsdocument.h>
+
+#include "parser.h"
 
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
+using namespace parser;
 
 class Location {
 protected:

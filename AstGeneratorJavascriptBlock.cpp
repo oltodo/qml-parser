@@ -4,10 +4,10 @@
 #include "AstGeneratorBase.h"
 #include "AstGeneratorJavascriptBlock.h"
 #include "Location.h"
+#include "parser.h"
 
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 json AstGeneratorJavascriptBlock::operator()(Node *node) {
   accept(node);

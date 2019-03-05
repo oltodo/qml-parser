@@ -7,11 +7,11 @@
 
 #include "AstGeneratorBase.h"
 #include "Location.h"
+#include "parser.h"
 
 using namespace std;
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 AstGeneratorBase::AstGeneratorBase(Document::Ptr doc, int level)
     : doc(doc), level(level) {}

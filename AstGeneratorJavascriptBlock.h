@@ -6,10 +6,11 @@
 #include <qmljs/parser/qmljsast_p.h>
 #include <qmljs/qmljsdocument.h>
 
+#include "parser.h"
+
 using namespace std;
 using namespace QmlJS;
 using namespace QmlJS::AST;
-using namespace nlohmann;
 
 class AstGeneratorJavascriptBlock : protected AstGeneratorBase {
   using AstGeneratorBase::AstGeneratorBase;
