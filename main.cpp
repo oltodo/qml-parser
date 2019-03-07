@@ -43,37 +43,32 @@ int main(int argc, char *argv[]) {
 
   QCommandLineParser parser;
   parser.setApplicationDescription(
-      "qml-parser generates AST document from QML files."
-      "\n"
-      "Without an explicit path, it processes the standard input. "
-      "Given a file, it operates on that file; given a directory, it operates "
-      "on all qml files in that directory, recursively. "
-      "(Files starting with a period are ignored.) By default, qmlfmt prints "
-      "the reformatted sources to standard output.");
+      "qml-parser generates AST document from QML files.");
 
-  QCommandLineOption diffOption(
+  QCommandLineOption debugOption(
       "d", "Do not print reformatted sources to standard output. "
            "If a file\'s formatting is different than qmlfmt\'s, print diffs "
            "to standard output.");
 
-  QCommandLineOption errorOption("e", "Print all errors.");
+  // QCommandLineOption errorOption("e", "Print all errors.");
 
-  QCommandLineOption listOption(
-      "l",
-      "Do not print reformatted sources to standard output. "
-      "If a file\'s formatting is different from qmlfmt\'s, print its name "
-      "to standard output.");
+  // QCommandLineOption listOption(
+  //     "l",
+  //     "Do not print reformatted sources to standard output. "
+  //     "If a file\'s formatting is different from qmlfmt\'s, print its name "
+  //     "to standard output.");
 
-  QCommandLineOption overwriteOption(
-      "w", "Do not print reformatted sources to standard output. "
-           "If a file\'s formatting is different from qmlfmt\'s, overwrite it "
-           "with qmlfmt\'s version.");
+  // QCommandLineOption overwriteOption(
+  //     "w", "Do not print reformatted sources to standard output. "
+  //          "If a file\'s formatting is different from qmlfmt\'s, overwrite it
+  //          " "with qmlfmt\'s version.");
 
   QMap<Parser::Option, QCommandLineOption> optionMap = {
-      {Parser::Option::PrintDiff, diffOption},
-      {Parser::Option::ListFileName, listOption},
-      {Parser::Option::PrintError, errorOption},
-      {Parser::Option::OverwriteFile, overwriteOption}};
+      {Parser::Option::Debug, debugOption}
+      // {Parser::Option::ListFileName, listOption},
+      // {Parser::Option::PrintError, errorOption},
+      // {Parser::Option::OverwriteFile, overwriteOption}
+  };
 
   // set up options
   parser.addHelpOption();
@@ -87,21 +82,22 @@ int main(int argc, char *argv[]) {
   parser.process(app);
 
   // validate arguments
-  if ((parser.isSet(overwriteOption) || parser.isSet(listOption)) &&
-      parser.positionalArguments().count() == 0) {
-    QTextStream(stderr) << "Cannot combine -" << overwriteOption.names().first()
-                        << " and -" << listOption.names().first()
-                        << " with standard input\n";
-    return 1;
-  } else if (parser.isSet(diffOption) + parser.isSet(overwriteOption) +
-                 parser.isSet(listOption) >
-             1) {
-    QTextStream(stderr) << "-" << diffOption.names().first() << ", -"
-                        << overwriteOption.names().first() << " and -"
-                        << listOption.names().first()
-                        << " are mutually exclusive\n";
-    return 1;
-  }
+  // if ((parser.isSet(overwriteOption) || parser.isSet(listOption)) &&
+  //     parser.positionalArguments().count() == 0) {
+  //   QTextStream(stderr) << "Cannot combine -" <<
+  //   overwriteOption.names().first()
+  //                       << " and -" << listOption.names().first()
+  //                       << " with standard input\n";
+  //   return 1;
+  // } else if (parser.isSet(diffOption) + parser.isSet(overwriteOption) +
+  //                parser.isSet(listOption) >
+  //            1) {
+  //   QTextStream(stderr) << "-" << diffOption.names().first() << ", -"
+  //                       << overwriteOption.names().first() << " and -"
+  //                       << listOption.names().first()
+  //                       << " are mutually exclusive\n";
+  //   return 1;
+  // }
 
   Parser::Options options;
   for (auto kvp = optionMap.constKeyValueBegin();

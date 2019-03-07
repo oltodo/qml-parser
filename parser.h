@@ -43,15 +43,17 @@ using ordered_map =
 
 namespace parser {
 using json = nlohmann::basic_json<ordered_map>;
-}
+} // namespace parser
 
 class Parser {
 public:
+  static bool debug;
+
   enum class Option {
-    ListFileName = 0x1,
-    OverwriteFile = 0x2,
-    PrintError = 0x4,
-    PrintDiff = 0x8
+    // ListFileName = 0x1,
+    // OverwriteFile = 0x2,
+    // PrintError = 0x4,
+    Debug = 0x8
   };
   Q_DECLARE_FLAGS(Options, Option)
 
@@ -63,6 +65,8 @@ public:
 private:
   Options m_options;
   int InternalRun(QIODevice &input, const QString &path);
+
+  void setDebug(bool debug_);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Parser::Options)

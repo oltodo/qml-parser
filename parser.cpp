@@ -43,6 +43,10 @@ using namespace QmlJS;
 using namespace QmlJS::AST;
 using namespace std;
 
+bool Parser::debug = true;
+
+void Parser::setDebug(bool debug_) { Parser::debug = debug_; }
+
 int Parser::InternalRun(QIODevice &input, const QString &path) {
   QTextStream qstdout(stdout);
   QTextStream qstderr(stderr);
@@ -54,66 +58,21 @@ int Parser::InternalRun(QIODevice &input, const QString &path) {
   document->setSource(source);
   document->parse();
 
+  const bool debug = this->m_options.testFlag(Option::Debug);
+
+  setDebug(debug);
+
   AstGenerator generator(document, 0);
   const json ast = generator(document->ast());
 
-  ofstream myfile;
-  myfile.open("sandbox/test.json");
-  myfile << ast.dump(2);
-  myfile.close();
-  // cout << ast.dump(2);
-
-  // if (!document->diagnosticMessages().isEmpty())
-  // {
-  //     if (this->m_options.testFlag(Option::PrintError))
-  //     {
-  //         for (const QmlJS::DiagnosticMessage &msg :
-  //         document->diagnosticMessages())
-  //         {
-  //             qstderr << (msg.isError() ? "Error:" : "Warning:");
-
-  //             qstderr << msg.loc.startLine << ':' << msg.loc.startColumn <<
-  //             ':';
-
-  //             qstderr << ' ' << msg.message << "\n";
-  //         }
-  //     }
-  //     return 1;
-  // }
-
-  // const QString reformatted = QmlJS::reformat(document, 2, 2);
-  // if (source == reformatted)
-  //     return 0;
-
-  // if (this->m_options.testFlag(Option::ListFileName))
-  // {
-  //     // List filename
-  //     qstdout << path << "\n";
-  // }
-  // else if (this->m_options.testFlag(Option::PrintDiff))
-  // {
-  //     // Create and print diff
-  //     diff_match_patch differ;
-  //     const QList<Patch> patches = differ.patch_make(source, reformatted);
-  //     qstdout << differ.patch_toText(patches);
-  // }
-  // else
-  // {
-  //     // Print reformatted file to stdout/original file
-  //     QFile outFile;
-  //     if (this->m_options.testFlag(Option::OverwriteFile))
-  //     {
-  //         outFile.setFileName(path);
-  //         outFile.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
-  //     }
-  //     else
-  //     {
-  //         outFile.open(stdout, QFile::WriteOnly | QFile::Text);
-  //     }
-
-  //     const QByteArray bytes = reformatted.toUtf8();
-  //     outFile.write(bytes);
-  // }
+  if (debug) {
+    ofstream myfile;
+    myfile.open("sandbox/test.json");
+    myfile << ast.dump(2);
+    myfile.close();
+  } else {
+    cout << ast.dump(2);
+  }
 
   return 0;
 }

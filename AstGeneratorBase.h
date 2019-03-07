@@ -30,6 +30,10 @@ protected:
 
   template <typename T1, typename T2>
   void print(const T1 &str, const T2 &extra) {
+    if (!Parser::debug) {
+      return;
+    }
+
     cout << string(level * 2, '-') << "> \033[1m" << str << "\033[0m";
 
     if (extra != "") {
