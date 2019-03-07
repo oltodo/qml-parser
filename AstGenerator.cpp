@@ -309,8 +309,14 @@ bool AstGenerator::visit(UiHeaderItemList *node) {
 
   ast = json::object();
 
+  const int lastOffset = doc->source().count() - 1;
+  const lineColumn position = getLineColumn(lastOffset);
+  const SourceLocation firstLocation = SourceLocation(0, 1, 1, 1);
+  const SourceLocation lastLocation =
+      SourceLocation(lastOffset, 1, position.line, position.column);
+
   ast["kind"] = "Program";
-  ast["loc"] = "undefined";
+  ast["loc"] = getLoc(firstLocation, lastLocation);
   ast["children"] = json::array();
 
   for (UiHeaderItemList *it = node; it; it = it->next) {

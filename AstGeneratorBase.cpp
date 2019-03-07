@@ -63,14 +63,14 @@ lineColumn AstGeneratorBase::getLineColumn(const int index) {
   lineColumn result;
 
   for (int i = 0; i < str.count(); ++i) {
-    if (i == index) {
-      break;
-    }
-
     if (str.at(i) == '\n') {
       result.line++;
       result.column = 1;
       continue;
+    }
+
+    if (i == index) {
+      break;
     }
 
     result.column++;

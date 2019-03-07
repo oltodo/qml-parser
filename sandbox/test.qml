@@ -16,43 +16,43 @@ import QtQuick 2.0
 // import "singleton/user/user.js" as User
 
 Rectangle {
-    signal clicked
-    signal hovered()
-    signal actionPerformed(
-        string action,
-        var actionResult
-    )
+    // signal clicked
+    // signal hovered()
+    // signal actionPerformed(
+    //     string action,
+    //     var actionResult
+    // )
 
-    property var someNumber: 1.5
-    property var someList: [1, 2, "three", "four"]
+    // property var someNumber: 1.5
+    // property var someList: [1, 2, "three", "four"]
     property var someObject: Rectangle { width: 100; height: 100; color: "red" }
-    property color someColor: "blue"
+    // property color someColor: "blue"
 
-    // Default property
-    default property var someString: "abc"
+    // // Default property
+    // default property var someString: "abc"
 
-    // Read-only property
-    readonly property var someBool: true
+    // // Read-only property
+    // readonly property var someBool: true
 
-    property list<Rectangle> siblingRects
+    // property list<Rectangle> siblingRects
 
-    property list<Rectangle> childRects: [
-        Rectangle { color: "red" },
-        Rectangle { color: "blue"}
-    ]
+    // property list<Rectangle> childRects: [
+    //     Rectangle { color: "red" },
+    //     Rectangle { color: "blue"}
+    // ]
 
-    width: 200; height: 200
+    // width: 200; height: 200
 
-    function greetings(name) {
-        console.log('Hello ' + name + '!');
-    }
+    // function greetings(name) {
+    //     console.log('Hello ' + name + '!');
+    // }
 
-    NumberAnimation on x {
-        from: 0
-        to: 350
-        loops: Animation.Infinite
-        duration: 2000
-    }
+    // NumberAnimation on x {
+    //     from: 0
+    //     to: 350
+    //     loops: Animation.Infinite
+    //     duration: 2000
+    // }
 
     // TextInput { id: myTextInput; text: "Hello World" }
 
@@ -69,4 +69,5 @@ Rectangle {
     //     property string someString
     //     property url someUrl
     // }
+
 }
