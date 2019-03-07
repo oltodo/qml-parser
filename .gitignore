@@ -3,7 +3,6 @@ CMakeFiles
 Makefile
 *.cmake
 CMakeCache.txt
-qml-parser
 *_autogen
 *.a
 test/testrunner

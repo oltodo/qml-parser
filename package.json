@@ -1,0 +1,12 @@
+{
+  "name": "@oltodo/qml-parser",
+  "version": "1.0.0",
+  "description": "A QML parser to generate AST documents",
+  "main": "index.js",
+  "repository": "https://github.com/oltodo/qml-parser.git",
+  "author": "Nicolas Bazille <nicolas.bazille@m6.fr>",
+  "license": "MIT",
+  "bin": {
+    "qml-parser": "./qml-parser"
+  }
+}
