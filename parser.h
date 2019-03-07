@@ -64,7 +64,7 @@ public:
 
 private:
   Options m_options;
-  int InternalRun(QIODevice &input, const QString &path);
+  int InternalRun(const QString &source);
 
   void setDebug(bool debug_);
 };

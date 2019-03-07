@@ -47,14 +47,9 @@ bool Parser::debug = true;
 
 void Parser::setDebug(bool debug_) { Parser::debug = debug_; }
 
-int Parser::InternalRun(QIODevice &input, const QString &path) {
-  QTextStream qstdout(stdout);
-  QTextStream qstderr(stderr);
-  const QString source = QString::fromUtf8(input.readAll());
-  const QmlJS::Dialect dialect =
-      QmlJS::ModelManagerInterface::guessLanguageOfFile(path);
-
-  QmlJS::Document::MutablePtr document = QmlJS::Document::create(path, dialect);
+int Parser::InternalRun(const QString &source) {
+  QmlJS::Document::MutablePtr document =
+      QmlJS::Document::create("", QmlJS::Dialect::Qml);
   document->setSource(source);
   document->parse();
 
@@ -82,38 +77,36 @@ Parser::Parser(Options options) {
   new QmlJS::ModelManagerInterface();
 }
 
-int Parser::Run() {
-  QFile file;
-  file.open(stdin, QFile::ReadOnly | QFile::Text);
-  return this->InternalRun(file, "stdin.qml");
-}
+int Parser::Run(QStringList args) {
+  if (args.count() == 0) {
+    QTextStream(stderr) << "Please provide a path or a QML text\n";
+    return 1;
+  }
 
-int Parser::Run(QStringList paths) {
-  if (paths.count() == 0) {
-    return Run();
+  if (args.count() > 1) {
+    QTextStream(stderr) << "Please provide only one path or one QML text\n";
+    return 1;
   }
 
   int returnValue = 0;
-  for (const QString &fileOrDir : paths) {
-    QFileInfo fileInfo(fileOrDir);
-    if (fileInfo.isFile()) {
-      QFile file(fileOrDir);
-      file.open(QFile::ReadOnly | QFile::Text);
-      returnValue |= this->InternalRun(file, fileOrDir);
-    } else if (fileInfo.isDir()) {
-      QDirIterator iter(fileOrDir, QStringList{"*.qml"}, QDir::Filter::Files,
-                        QDirIterator::IteratorFlag::Subdirectories);
+  const QString pathOrText = args[0];
 
-      while (iter.hasNext()) {
-        QFile file(iter.next());
-        file.open(QFile::ReadOnly | QFile::Text);
-        returnValue |= this->InternalRun(file, file.fileName());
-      }
-    } else {
-      QTextStream(stderr) << "Path is not valid file or directory: "
-                          << fileOrDir << "\n";
-      returnValue |= 1;
-    }
+  QFileInfo fileInfo(pathOrText);
+
+  if (fileInfo.isDir()) {
+    QTextStream(stderr) << "qml-parser doesn't hangle path to directory\n";
+    return 1;
+  }
+
+  if (fileInfo.isFile()) {
+    QFile file(pathOrText);
+    file.open(QFile::ReadOnly | QFile::Text);
+    const QString source = QString::fromUtf8(file.readAll());
+
+    returnValue = this->InternalRun(source);
+  } else {
+    const QString source = pathOrText;
+    returnValue = this->InternalRun(source);
   }
 
   return returnValue;
