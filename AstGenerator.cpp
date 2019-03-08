@@ -234,7 +234,7 @@ bool AstGenerator::visit(UiScriptBinding *node) {
   print("UiScriptBinding");
 
   json item;
-  item["kind"] = "Property";
+  item["kind"] = "Attribute";
   item["identifier"] = toString(node->qualifiedId);
 
   AstGeneratorJavascriptBlock gen(doc, level + 1);
