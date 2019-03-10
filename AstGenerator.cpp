@@ -154,8 +154,9 @@ bool AstGenerator::visit(UiPublicMember *node) {
       item["identifier"] = toString(node->identifierToken);
 
       AstGenerator gen(doc, level + 1);
-      json value = gen(node->binding);
-      item["value"].push_back(value);
+      item["value"] = gen(node->binding);
+      // json value = gen(node->binding);
+      // item["value"].push_back(value);
     } else
       item["identifier"] = toString(node->identifierToken);
   } else {
@@ -205,25 +206,13 @@ bool AstGenerator::visit(UiObjectBinding *node) {
     item["on"] = toString(node->qualifiedId);
     item["loc"] =
         getLoc(node->firstSourceLocation(), node->lastSourceLocation());
-    // item["on"] = toString(node->qualifiedTypeNameId);
   } else {
-    // item["identifier"] = toString(node->qualifiedId);
+    item["kind"] = "ObjectDefinition";
+    item["identifier"] = toString(node->qualifiedTypeNameId);
   }
 
   AstGenerator gen(doc, level + 1);
   item["children"] = gen(node->initializer);
-
-  // if (node->hasOnToken) {
-  //   accept(node->qualifiedTypeNameId);
-  //   out(" on ");
-  //   accept(node->qualifiedId);
-  // } else {
-  //   accept(node->qualifiedId);
-  //   out(": ", node->colonToken);
-  //   accept(node->qualifiedTypeNameId);
-  // }
-  // out(" ");
-  // accept(node->initializer);
 
   ast = item;
 
