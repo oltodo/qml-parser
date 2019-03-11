@@ -206,13 +206,22 @@ bool AstGenerator::visit(UiObjectBinding *node) {
     item["on"] = toString(node->qualifiedId);
     item["loc"] =
         getLoc(node->firstSourceLocation(), node->lastSourceLocation());
-  } else {
-    item["kind"] = "ObjectDefinition";
-    item["identifier"] = toString(node->qualifiedTypeNameId);
-  }
 
-  AstGenerator gen(doc, level + 1);
-  item["children"] = gen(node->initializer);
+    AstGenerator gen(doc, level + 1);
+    item["children"] = gen(node->initializer);
+  } else {
+    item["kind"] = "Attribute";
+    item["identifier"] = toString(node->qualifiedId);
+
+    json value;
+    value["kind"] = "ObjectDefinition";
+    value["identifier"] = toString(node->qualifiedTypeNameId);
+
+    AstGenerator gen(doc, level + 1);
+    value["children"] = gen(node->initializer);
+
+    item["value"] = value;
+  }
 
   ast = item;
 
@@ -281,12 +290,6 @@ bool AstGenerator::visit(FunctionExpression *node) {
   Location loc = mergeLocs(node->functionToken, node->rbraceToken);
   item["loc"] = getLoc(loc);
   item["body"] = toString(loc);
-
-  // AstGenerator gen1(doc, level + 1);
-  // item["arguments"] = gen1(node->formals);
-
-  // AstGeneratorJavascriptBlock gen2(doc, level + 1);
-  // item["body"] = gen2(node->body);
 
   ast = item;
 
