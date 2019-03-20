@@ -72,6 +72,7 @@ bool AstGenerator::visit(UiObjectDefinition *node) {
   print("UiObjectDefinition", toString(node->qualifiedTypeNameId));
 
   ast["kind"] = "ObjectDefinition";
+  ast["loc"] = getLoc(node->firstSourceLocation(), node->lastSourceLocation());
   ast["identifier"] = toString(node->qualifiedTypeNameId);
   ast["children"] = json::array();
 
@@ -202,10 +203,10 @@ bool AstGenerator::visit(UiObjectBinding *node) {
 
   if (node->hasOnToken) {
     item["kind"] = "ObjectDefinition";
-    item["identifier"] = toString(node->qualifiedTypeNameId);
-    item["on"] = toString(node->qualifiedId);
     item["loc"] =
         getLoc(node->firstSourceLocation(), node->lastSourceLocation());
+    item["identifier"] = toString(node->qualifiedTypeNameId);
+    item["on"] = toString(node->qualifiedId);
 
     AstGenerator gen(doc, level + 1);
     item["children"] = gen(node->initializer);
@@ -215,6 +216,8 @@ bool AstGenerator::visit(UiObjectBinding *node) {
 
     json value;
     value["kind"] = "ObjectDefinition";
+    value["loc"] = getLoc(node->qualifiedTypeNameId->firstSourceLocation(),
+                          node->initializer->lastSourceLocation());
     value["identifier"] = toString(node->qualifiedTypeNameId);
 
     AstGenerator gen(doc, level + 1);
