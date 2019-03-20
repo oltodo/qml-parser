@@ -17,7 +17,7 @@ using namespace QmlJS::AST;
 
 struct lineColumn {
   int line = 1;
-  int column = 1;
+  int column = 0;
 };
 
 class AstGeneratorBase : protected Visitor {

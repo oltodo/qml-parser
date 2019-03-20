@@ -7,14 +7,6 @@
 using namespace QmlJS;
 using namespace QmlJS::AST;
 
-// int startColumn = 0;
-// int startLine = 0;
-// int startOffset = 0;
-// int endColumn = 0;
-// int endLine = 0;
-// int endOffset = 0;
-// int length = 0;
-
 Location::Location() {}
 
 Location::Location(int column, int line, int offset, int length) {
@@ -28,14 +20,14 @@ Location::Location(int startColumn, int startLine, int startOffset,
       length(endOffset - startOffset) {}
 
 Location::Location(SourceLocation const &loc) {
-  set(loc.startColumn, loc.startLine, loc.offset, loc.length);
+  set(loc.startColumn - 1, loc.startLine, loc.offset, loc.length);
 }
 
 void Location::set(int column, int line, int offset, int length_) {
   startColumn = column;
   startLine = line;
   startOffset = offset;
-  endColumn = column;
+  endColumn = column + length_;
   endLine = line;
   endOffset = offset + length_;
   length = length_;
@@ -51,10 +43,22 @@ Location Location::operator+(int size) {
 }
 
 Location Location::mergeWith(const Location &loc) const {
-  return Location(
-      min(startColumn, loc.startColumn), min(startLine, loc.startLine),
-      min(startOffset, loc.startOffset), max(endColumn, loc.endColumn),
-      max(endLine, loc.endLine), max(endOffset, loc.endOffset));
+  Location startLoc;
+  Location endLoc;
+
+  if (startOffset < loc.startOffset)
+    startLoc = *this;
+  else
+    startLoc = loc;
+
+  if (endOffset > loc.endOffset)
+    endLoc = *this;
+  else
+    endLoc = loc;
+
+  return Location(startLoc.startColumn, startLoc.startLine,
+                  startLoc.startOffset, endLoc.endColumn, endLoc.endLine,
+                  endLoc.endOffset);
 }
 
 json Location::toJson() const {

@@ -65,7 +65,7 @@ lineColumn AstGeneratorBase::getLineColumn(const int index) {
   for (int i = 0; i < str.count(); ++i) {
     if (str.at(i) == '\n') {
       result.line++;
-      result.column = 1;
+      result.column = 0;
       continue;
     }
 
