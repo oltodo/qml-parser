@@ -163,32 +163,49 @@ bool AstGenerator::visit(UiPublicMember *node) {
   } else {
     item["kind"] = "Signal";
     item["identifier"] = toString(node->identifierToken);
+    item["asBrackets"] = false;
 
     Location loc;
 
     if (node->parameters) {
       AstGenerator gen(doc, level + 1);
       item["parameters"] = gen(node->parameters);
+      item["asBrackets"] = true;
 
-      // Where is the closing parenthesis?!
+      // Where is the closing bracket?!
       const Location lastLoc =
           static_cast<Location>(node->parameters->lastSourceLocation());
 
-      const int closingParenthesisOffset =
+      const int closingBracketOffset =
           doc->source().indexOf(')', lastLoc.endOffset);
 
-      lineColumn position = getLineColumn(closingParenthesisOffset);
+      const lineColumn position = getLineColumn(closingBracketOffset);
 
-      const SourceLocation parenthesisLocation = SourceLocation(
-          closingParenthesisOffset, 1, position.line, position.column);
+      const Location bracketLocation =
+          Location(position.column, position.line, closingBracketOffset, 1);
 
-      loc = mergeLocs(node->firstSourceLocation(), parenthesisLocation);
+      loc = mergeLocs(node->firstSourceLocation(), bracketLocation);
     } else {
-      loc = mergeLocs(node->firstSourceLocation(), node->identifierToken);
+      Location lastLoc = static_cast<Location>(node->identifierToken);
+
+      const int nextCharIndex = getNextPrintableCharIndex(lastLoc.endOffset);
+      const QChar nextChar = getCharAt(nextCharIndex);
+
+      if (nextChar == '(') {
+        item["asBrackets"] = true;
+
+        const int closingBracketIndex =
+            getNextPrintableCharIndex(nextCharIndex);
+        const lineColumn position = getLineColumn(closingBracketIndex);
+
+        lastLoc = Location(position.column + 1, position.line,
+                           closingBracketIndex + 1, 1);
+      }
+
+      loc = mergeLocs(node->firstSourceLocation(), lastLoc);
     }
 
     item["loc"] = getLoc(loc);
-    item["body"] = toString(loc);
   }
 
   ast = item;

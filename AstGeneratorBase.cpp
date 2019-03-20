@@ -79,6 +79,26 @@ lineColumn AstGeneratorBase::getLineColumn(const int index) {
   return result;
 }
 
+QChar AstGeneratorBase::getCharAt(const int index) {
+  const QString str = doc->source();
+
+  return str.at(index);
+}
+
+int AstGeneratorBase::getNextPrintableCharIndex(const int startFromIndex = 0) {
+  const QString str = doc->source();
+
+  for (int i = startFromIndex; i < str.count(); ++i) {
+    const QChar ch = str.at(i);
+
+    if (ch.isPrint() && !ch.isSpace()) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
 bool AstGeneratorBase::visit(UiPragma *node) {
   print("UiPragma", "not implemented");
   return false;

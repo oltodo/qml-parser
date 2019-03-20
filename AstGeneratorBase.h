@@ -99,6 +99,9 @@ protected:
 
   lineColumn getLineColumn(const int index);
 
+  QChar getCharAt(const int index);
+  int getNextPrintableCharIndex(const int startFromIndex);
+
   bool visit(UiPragma *node) override;
   bool visit(UiImport *node) override;
   bool visit(UiObjectDefinition *node) override;
