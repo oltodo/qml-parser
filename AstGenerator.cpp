@@ -130,11 +130,12 @@ bool AstGenerator::visit(UiPublicMember *node) {
 
   if (node->type == UiPublicMember::Property) {
     item["kind"] = "Property";
+    item["loc"];
 
-    item["loc"] =
-        getLoc(node->defaultToken, node->readonlyToken, node->propertyToken,
-               node->typeModifierToken, node->typeToken, node->identifierToken,
-               node->colonToken, node->semicolonToken);
+    Location loc = mergeLocs(node->defaultToken, node->readonlyToken,
+                             node->propertyToken, node->typeModifierToken,
+                             node->typeToken, node->identifierToken,
+                             node->colonToken, node->semicolonToken);
 
     if (node->isDefaultMember)
       item["default"] = true;
@@ -151,15 +152,22 @@ bool AstGenerator::visit(UiPublicMember *node) {
 
       AstGeneratorJavascriptBlock gen(doc, level + 1);
       item["value"] = gen(node->statement);
+
+      loc = mergeLocs(loc, Location(item["value"]["loc"]));
     } else if (node->binding) {
       item["identifier"] = toString(node->identifierToken);
 
       AstGenerator gen(doc, level + 1);
       item["value"] = gen(node->binding);
-      // json value = gen(node->binding);
-      // item["value"].push_back(value);
+
+      if (item["value"]["kind"] == "Attribute")
+        item["value"] = item["value"]["value"];
+
+      loc = mergeLocs(loc, Location(item["value"]["loc"]));
     } else
       item["identifier"] = toString(node->identifierToken);
+
+    item["loc"] = getLoc(loc);
   } else {
     item["kind"] = "Signal";
     item["identifier"] = toString(node->identifierToken);

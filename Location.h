@@ -33,6 +33,8 @@ public:
 
   Location(SourceLocation const &loc);
 
+  Location(json const &loc);
+
   bool isValid() const;
 
   operator json();

@@ -23,6 +23,16 @@ Location::Location(SourceLocation const &loc) {
   set(loc.startColumn - 1, loc.startLine, loc.offset, loc.length);
 }
 
+Location::Location(json const &loc) {
+  startColumn = loc["start"]["column"];
+  startLine = loc["start"]["line"];
+  startOffset = loc["start"]["offset"];
+  endColumn = loc["end"]["column"];
+  endLine = loc["end"]["line"];
+  endOffset = loc["end"]["offset"];
+  length = endOffset - startOffset;
+}
+
 void Location::set(int column, int line, int offset, int length_) {
   startColumn = column;
   startLine = line;
