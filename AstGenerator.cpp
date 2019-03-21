@@ -268,6 +268,8 @@ bool AstGenerator::visit(UiArrayBinding *node) {
 
   json item;
   item["kind"] = "ArrayBinding";
+  item["loc"] = getLoc(node->lbracketToken, node->rbracketToken);
+
   item["identifier"] = toString(node->qualifiedId);
 
   AstGenerator gen(doc, level + 1);
