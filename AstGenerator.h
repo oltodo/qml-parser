@@ -25,6 +25,7 @@ protected:
   void insertComments();
   void insertComment(const SourceLocation &loc);
   Location getGoodCommentLocation(const SourceLocation &badLoc);
+  bool isCommentInFunction(const Location &loc, const json &node);
 
   bool visit(UiImport *node) override;
   bool visit(UiObjectDefinition *node) override;
