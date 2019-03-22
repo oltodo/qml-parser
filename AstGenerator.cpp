@@ -16,7 +16,62 @@ void AstGenerator::accept(Node *node) { Node::accept(node, this); }
 
 json AstGenerator::operator()(Node *node) {
   accept(node);
+  insertComments();
+
   return ast;
+}
+
+void AstGenerator::insertComments() {
+  if (level != 0)
+    return;
+
+  ast["comments"] = json::array();
+
+  const QList<SourceLocation> &comments = doc->engine()->comments();
+
+  for (int i = 0; i < comments.size(); ++i) {
+    insertComment(comments.at(i));
+  }
+}
+
+Location AstGenerator::getGoodCommentLocation(const SourceLocation &badLoc) {
+  const int startOffset = badLoc.offset - 2;
+  const int startLine = badLoc.startLine;
+  const int startColumn = badLoc.startColumn - 2;
+
+  int endOffset = startOffset + badLoc.length + 2;
+
+  const QString source = doc->source();
+  const QString openingTag = source.mid(startOffset, 2);
+
+  if (openingTag == "/*") {
+    endOffset += 2;
+  }
+
+  const lineColumn endPosition = getLineColumn(endOffset);
+  const int endLine = endPosition.line;
+  const int endColumn = endPosition.column;
+
+  return Location(startColumn, startLine, startOffset, endColumn, endLine,
+                  endOffset);
+}
+
+void AstGenerator::insertComment(const SourceLocation &initialLoc) {
+  const Location loc = getGoodCommentLocation(initialLoc);
+  const string value = toString(loc);
+
+  json comment;
+
+  if (value.substr(0, 2) == "//") {
+    comment["kind"] = "CommentLine";
+  } else {
+    comment["kind"] = "CommentBlock`";
+  }
+
+  comment["loc"] = getLoc(loc);
+  comment["value"] = value;
+
+  ast["comments"].push_back(comment);
 }
 
 void AstGenerator::appendItems(const json &items) {
@@ -90,16 +145,6 @@ bool AstGenerator::visit(UiObjectInitializer *node) {
 
   AstGenerator gen(doc, level + 1);
   appendItems(gen(node->members));
-
-  // json items;
-
-  // for (UiObjectMemberList *it = node->members; it; it = it->next) {
-  //   AstGenerator gen(doc, level + 1);
-  //   const json item = gen(it);
-  //   items.push_back(item);
-  // }
-
-  // appendItems(items);
 
   return false;
 }

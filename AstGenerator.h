@@ -22,6 +22,9 @@ public:
 protected:
   void accept(Node *node);
   void appendItems(const json &items);
+  void insertComments();
+  void insertComment(const SourceLocation &loc);
+  Location getGoodCommentLocation(const SourceLocation &badLoc);
 
   bool visit(UiImport *node) override;
   bool visit(UiObjectDefinition *node) override;
