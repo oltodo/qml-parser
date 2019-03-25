@@ -335,10 +335,14 @@ bool AstGenerator::visit(UiScriptBinding *node) {
 
   json item;
   item["kind"] = "Attribute";
+  item["loc"];
   item["identifier"] = toString(node->qualifiedId);
 
   AstGeneratorJavascriptBlock gen(doc, level + 1);
   item["value"] = gen(node->statement);
+
+  item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
+                          Location(item["value"]["loc"]));
 
   ast = item;
 
