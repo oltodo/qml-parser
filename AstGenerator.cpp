@@ -56,17 +56,24 @@ Location AstGenerator::getGoodCommentLocation(const SourceLocation &badLoc) {
                   endOffset);
 }
 
-bool AstGenerator::isCommentInFunction(const Location &loc, const json &node) {
-  if (node["kind"] == "Function") {
+bool AstGenerator::isCommentInJavascript(const Location &loc,
+                                         const json &node) {
+  if (node["kind"] == "Function" || node["kind"] == "JavascriptBlock") {
     return node["loc"]["start"]["offset"] <= loc.startOffset &&
            node["loc"]["end"]["offset"] >= loc.endOffset;
   }
 
   if (node.contains("children") && !node["children"].empty()) {
     for (int i = 0; i < node["children"].size(); ++i) {
-      if (isCommentInFunction(loc, node["children"][i])) {
+      if (isCommentInJavascript(loc, node["children"][i])) {
         return true;
       }
+    }
+  }
+
+  if (node.contains("value") && node["value"].contains("kind")) {
+    if (isCommentInJavascript(loc, node["value"])) {
+      return true;
     }
   }
 
@@ -76,7 +83,7 @@ bool AstGenerator::isCommentInFunction(const Location &loc, const json &node) {
 void AstGenerator::insertComment(const SourceLocation &initialLoc) {
   const Location loc = getGoodCommentLocation(initialLoc);
 
-  if (isCommentInFunction(loc, ast)) {
+  if (isCommentInJavascript(loc, ast)) {
     return;
   }
 
