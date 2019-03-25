@@ -27,6 +27,7 @@ protected:
   Location getGoodCommentLocation(const SourceLocation &badLoc);
   bool isCommentInJavascript(const Location &loc, const json &node);
 
+  bool visit(UiPragma *node) override;
   bool visit(UiImport *node) override;
   bool visit(UiObjectDefinition *node) override;
   bool visit(UiObjectInitializer *node) override;

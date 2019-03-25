@@ -126,6 +126,20 @@ void AstGenerator::appendItems(const json &items) {
   }
 }
 
+bool AstGenerator::visit(UiPragma *node) {
+  print("UiPragma");
+
+  json item;
+
+  item["kind"] = "Pragma";
+  item["loc"] = getLoc(node->pragmaToken, node->pragmaType->identifierToken);
+  item["type"] = toString(node->pragmaType->identifierToken);
+
+  ast = item;
+
+  return false;
+}
+
 bool AstGenerator::visit(UiImport *node) {
   print("UiImport");
 
