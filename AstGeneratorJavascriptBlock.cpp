@@ -12,7 +12,12 @@ using namespace QmlJS::AST;
 json AstGeneratorJavascriptBlock::operator()(Node *node) {
   accept(node);
 
-  ast["kind"] = "JavascriptBlock";
+  if (Block *t = dynamic_cast<Block *>(node)) {
+    ast["kind"] = "JavascriptBlock";
+  } else {
+    ast["kind"] = "JavascriptValue";
+  }
+
   ast["loc"] = getLoc(loc);
   ast["value"] = toString(loc);
 
