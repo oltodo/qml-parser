@@ -325,6 +325,7 @@ bool AstGenerator::visit(UiObjectBinding *node) {
     item["children"] = gen(node->initializer);
   } else {
     item["kind"] = "Attribute";
+    item["loc"];
     item["identifier"] = toString(node->qualifiedId);
 
     json value;
@@ -337,6 +338,7 @@ bool AstGenerator::visit(UiObjectBinding *node) {
     value["children"] = gen(node->initializer);
 
     item["value"] = value;
+    item["loc"] = getLoc(node->firstSourceLocation(), item["value"]["loc"]);
   }
 
   ast = item;
