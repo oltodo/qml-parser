@@ -17,6 +17,7 @@ class AstGeneratorJavascriptBlock : protected AstGeneratorBase {
 
   json ast;
   Location loc;
+  bool object = false;
 
 protected:
   void accept(Node *node);

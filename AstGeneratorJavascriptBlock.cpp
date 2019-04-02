@@ -19,6 +19,7 @@ json AstGeneratorJavascriptBlock::operator()(Node *node) {
   }
 
   ast["loc"] = getLoc(loc);
+  ast["object"] = object;
   ast["value"] = toString(loc);
 
   return ast;
@@ -29,5 +30,9 @@ void AstGeneratorJavascriptBlock::accept(Node *node) {
 }
 
 void AstGeneratorJavascriptBlock::postVisit(Node *node) {
+  if (node->kind == node->Kind_ObjectLiteral) {
+    object = true;
+  }
+
   loc = mergeLocs(loc, node->firstSourceLocation(), node->lastSourceLocation());
 }
