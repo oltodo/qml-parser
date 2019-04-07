@@ -1,8 +1,14 @@
 {
   "name": "@oltodo/qml-parser",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A QML parser to generate AST documents",
-  "main": "qml-parser",
+  "main": "index.js",
+  "files": [
+    "package.json",
+    "index.js",
+    "qml-parser",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oltodo/qml-parser.git"
@@ -11,10 +17,5 @@
   "license": "MIT",
   "bin": {
     "qml-parser": "./qml-parser"
-  },
-  "files": [
-    "Readme.md",
-    "package.json",
-    "qml-parser"
-  ]
+  }
 }
