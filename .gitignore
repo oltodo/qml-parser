@@ -7,8 +7,3 @@ CMakeCache.txt
 *.a
 test/testrunner
 sandbox/*.json
-
-# Submodules
-json
-qt-creator
-ordered-map
