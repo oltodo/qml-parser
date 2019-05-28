@@ -25,8 +25,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef Foobar_H
+#define Foobar_H
 
 #include <QString>
 #include <nlohmann/json.hpp>
@@ -41,11 +41,11 @@ template <class Key, class T, class Ignore, class Allocator,
 using ordered_map =
     tsl::ordered_map<Key, T, Hash, KeyEqual, AllocatorPair, ValueTypeContainer>;
 
-namespace parser {
+namespace Parser {
 using json = nlohmann::basic_json<ordered_map>;
-} // namespace parser
+} // namespace Parser
 
-class Parser {
+class Foobar {
 public:
   static bool debug;
 
@@ -57,18 +57,18 @@ public:
   };
   Q_DECLARE_FLAGS(Options, Option)
 
-  Parser(Options options);
+  Foobar(Options options);
 
   int Run();
   int Run(QStringList paths);
 
 private:
   Options m_options;
-  int InternalRun(const QString &source);
+  int InternalRun(const QString &code);
 
   void setDebug(bool debug_);
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Parser::Options)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Foobar::Options)
 
-#endif // PARSER_H
+#endif // Foobar_H

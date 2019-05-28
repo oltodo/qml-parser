@@ -1,4 +1,0 @@
-import "qrc:/test/"
-
-Item {
-}

@@ -1,6 +1,6 @@
 #include <iostream>
-#include <qmljs/parser/qmljsast_p.h>
-#include <qmljs/qmljsdocument.h>
+
+#include <private/qqmljsast_p.h>
 
 #include "AstGenerator.h"
 #include "AstGeneratorBase.h"
@@ -9,8 +9,7 @@
 #include "parser.h"
 
 using namespace std;
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 void AstGenerator::accept(Node *node) { Node::accept(node, this); }
 
@@ -27,7 +26,7 @@ void AstGenerator::insertComments() {
 
   ast["comments"] = json::array();
 
-  const QList<SourceLocation> &comments = doc->engine()->comments();
+  const QList<SourceLocation> &comments = engine->comments();
 
   for (int i = 0; i < comments.size(); ++i) {
     insertComment(comments.at(i));
@@ -41,8 +40,7 @@ Location AstGenerator::getGoodCommentLocation(const SourceLocation &badLoc) {
 
   int endOffset = startOffset + badLoc.length + 2;
 
-  const QString source = doc->source();
-  const QString openingTag = source.mid(startOffset, 2);
+  const QString openingTag = engine->code().mid(startOffset, 2);
 
   if (openingTag == "/*") {
     endOffset += 2;
@@ -64,7 +62,8 @@ bool AstGenerator::isCommentInJavascript(const Location &loc,
   }
 
   if (node.contains("children") && !node["children"].empty()) {
-    for (int i = 0; i < node["children"].size(); ++i) {
+    int size = node["children"].size();
+    for (int i = 0; i < size; ++i) {
       if (isCommentInJavascript(loc, node["children"][i])) {
         return true;
       }
@@ -132,8 +131,8 @@ bool AstGenerator::visit(UiPragma *node) {
   json item;
 
   item["kind"] = "Pragma";
-  item["loc"] = getLoc(node->pragmaToken, node->pragmaType->identifierToken);
-  item["type"] = toString(node->pragmaType->identifierToken);
+  item["loc"] = getLoc(node->pragmaToken, node->lastSourceLocation());
+  item["type"] = toString(node->name);
 
   ast = item;
 
@@ -175,7 +174,7 @@ bool AstGenerator::visit(UiObjectDefinition *node) {
   ast["children"] = json::array();
 
   if (node->initializer) {
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     const json item = gen(node->initializer);
     ast["children"] = item;
   }
@@ -186,7 +185,7 @@ bool AstGenerator::visit(UiObjectDefinition *node) {
 bool AstGenerator::visit(UiObjectInitializer *node) {
   print("UiObjectInitializer");
 
-  AstGenerator gen(doc, level + 1);
+  AstGenerator gen(engine, level + 1);
   appendItems(gen(node->members));
 
   return false;
@@ -238,14 +237,14 @@ bool AstGenerator::visit(UiPublicMember *node) {
     if (node->statement) {
       item["identifier"] = toString(node->identifierToken);
 
-      AstGeneratorJavascriptBlock gen(doc, level + 1);
+      AstGeneratorJavascriptBlock gen(engine, level + 1);
       item["value"] = gen(node->statement);
 
       loc = mergeLocs(loc, Location(item["value"]["loc"]));
     } else if (node->binding) {
       item["identifier"] = toString(node->identifierToken);
 
-      AstGenerator gen(doc, level + 1);
+      AstGenerator gen(engine, level + 1);
       item["value"] = gen(node->binding);
 
       if (item["value"]["kind"] == "Attribute")
@@ -264,7 +263,7 @@ bool AstGenerator::visit(UiPublicMember *node) {
     Location loc;
 
     if (node->parameters) {
-      AstGenerator gen(doc, level + 1);
+      AstGenerator gen(engine, level + 1);
       item["parameters"] = gen(node->parameters);
       item["asBrackets"] = true;
 
@@ -273,7 +272,7 @@ bool AstGenerator::visit(UiPublicMember *node) {
           static_cast<Location>(node->parameters->lastSourceLocation());
 
       const int closingBracketOffset =
-          doc->source().indexOf(')', lastLoc.endOffset);
+          engine->code().indexOf(')', lastLoc.endOffset);
 
       const lineColumn position = getLineColumn(closingBracketOffset);
 
@@ -321,7 +320,7 @@ bool AstGenerator::visit(UiObjectBinding *node) {
     item["identifier"] = toString(node->qualifiedTypeNameId);
     item["on"] = toString(node->qualifiedId);
 
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     item["children"] = gen(node->initializer);
   } else {
     item["kind"] = "Attribute";
@@ -334,7 +333,7 @@ bool AstGenerator::visit(UiObjectBinding *node) {
                           node->initializer->lastSourceLocation());
     value["identifier"] = toString(node->qualifiedTypeNameId);
 
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     value["children"] = gen(node->initializer);
 
     item["value"] = value;
@@ -354,7 +353,7 @@ bool AstGenerator::visit(UiScriptBinding *node) {
   item["loc"];
   item["identifier"] = toString(node->qualifiedId);
 
-  AstGeneratorJavascriptBlock gen(doc, level + 1);
+  AstGeneratorJavascriptBlock gen(engine, level + 1);
   item["value"] = gen(node->statement);
 
   item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
@@ -374,7 +373,7 @@ bool AstGenerator::visit(UiArrayBinding *node) {
 
   item["identifier"] = toString(node->qualifiedId);
 
-  AstGenerator gen(doc, level + 1);
+  AstGenerator gen(engine, level + 1);
   item["children"] = gen(node->members);
 
   ast = item;
@@ -388,7 +387,7 @@ bool AstGenerator::visit(UiArrayMemberList *node) {
   json items;
 
   for (UiArrayMemberList *it = node; it; it = it->next) {
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     const json item = gen(it->member);
     items.push_back(item);
   }
@@ -425,7 +424,7 @@ bool AstGenerator::visit(UiHeaderItemList *node) {
 
   ast = json::object();
 
-  const int lastOffset = doc->source().count();
+  const int lastOffset = engine->code().count();
   const lineColumn position = getLineColumn(lastOffset);
   const Location loc =
       Location(0, 1, 0, position.column, position.line, lastOffset);
@@ -435,7 +434,7 @@ bool AstGenerator::visit(UiHeaderItemList *node) {
   ast["children"] = json::array();
 
   for (UiHeaderItemList *it = node; it; it = it->next) {
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     const json item = gen(it->headerItem);
     ast["children"].push_back(item);
   }
@@ -449,7 +448,7 @@ bool AstGenerator::visit(UiObjectMemberList *node) {
   json items;
 
   for (UiObjectMemberList *it = node; it; it = it->next) {
-    AstGenerator gen(doc, level + 1);
+    AstGenerator gen(engine, level + 1);
     const json item = gen(it->member);
     items.push_back(item);
   }

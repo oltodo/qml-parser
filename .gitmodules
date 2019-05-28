@@ -1,9 +1,6 @@
-[submodule "qt-creator"]
-	path = qt-creator
-	url = https://github.com/qt-creator/qt-creator
-[submodule "json"]
-	path = json
+[submodule "3rdparty/json"]
+	path = 3rdparty/json
 	url = https://github.com/nlohmann/json
-[submodule "ordered-map"]
-	path = ordered-map
+[submodule "3rdparty/ordered-map"]
+	path = 3rdparty/ordered-map
 	url = https://github.com/Tessil/ordered-map.git

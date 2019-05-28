@@ -1,26 +1,29 @@
-#include <qmljs/parser/qmljsast_p.h>
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmljsast_p.h>
 
 #include "AstGeneratorBase.h"
 #include "AstGeneratorJavascriptBlock.h"
 #include "Location.h"
 #include "parser.h"
 
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 json AstGeneratorJavascriptBlock::operator()(Node *node) {
   accept(node);
 
-  if (Block *t = dynamic_cast<Block *>(node)) {
+  string value = toString(loc);
+  QString qvalue = QString::fromStdString(value);
+
+  bool isBlock = node->kind == node->Kind_Block;
+
+  if (isBlock) {
     ast["kind"] = "JavascriptBlock";
   } else {
     ast["kind"] = "JavascriptValue";
   }
 
   ast["loc"] = getLoc(loc);
-  ast["object"] = object;
-  ast["value"] = toString(loc);
+  ast["object"] = !isBlock && qvalue.startsWith('{') && qvalue.endsWith('}');
+  ast["value"] = value;
 
   return ast;
 }
@@ -30,9 +33,5 @@ void AstGeneratorJavascriptBlock::accept(Node *node) {
 }
 
 void AstGeneratorJavascriptBlock::postVisit(Node *node) {
-  if (node->kind == node->Kind_ObjectLiteral) {
-    object = true;
-  }
-
   loc = mergeLocs(loc, node->firstSourceLocation(), node->lastSourceLocation());
 }

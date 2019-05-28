@@ -3,21 +3,18 @@
 #ifndef AST_GENERATOR_JAVASCRIPT_BLOCK_H
 #define AST_GENERATOR_JAVASCRIPT_BLOCK_H
 
-#include <qmljs/parser/qmljsast_p.h>
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmljsast_p.h>
 
 #include "parser.h"
 
 using namespace std;
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 class AstGeneratorJavascriptBlock : protected AstGeneratorBase {
   using AstGeneratorBase::AstGeneratorBase;
 
   json ast;
   Location loc;
-  bool object = false;
 
 protected:
   void accept(Node *node);

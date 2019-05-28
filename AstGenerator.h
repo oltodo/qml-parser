@@ -3,13 +3,12 @@
 #ifndef AST_GENERATOR_H
 #define AST_GENERATOR_H
 
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmljsast_p.h>
 
 #include "AstGeneratorBase.h"
 #include "parser.h"
 
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 class AstGenerator : protected AstGeneratorBase {
   using AstGeneratorBase::AstGeneratorBase;

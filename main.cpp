@@ -63,11 +63,11 @@ int main(int argc, char *argv[]) {
   //          "If a file\'s formatting is different from qmlfmt\'s, overwrite it
   //          " "with qmlfmt\'s version.");
 
-  QMap<Parser::Option, QCommandLineOption> optionMap = {
-      {Parser::Option::Debug, debugOption}
-      // {Parser::Option::ListFileName, listOption},
-      // {Parser::Option::PrintError, errorOption},
-      // {Parser::Option::OverwriteFile, overwriteOption}
+  QMap<Foobar::Option, QCommandLineOption> optionMap = {
+      {Foobar::Option::Debug, debugOption}
+      // {Foobar::Option::ListFileName, listOption},
+      // {Foobar::Option::PrintError, errorOption},
+      // {Foobar::Option::OverwriteFile, overwriteOption}
   };
 
   // set up options
@@ -99,13 +99,13 @@ int main(int argc, char *argv[]) {
   //   return 1;
   // }
 
-  Parser::Options options;
+  Foobar::Options options;
   for (auto kvp = optionMap.constKeyValueBegin();
        kvp != optionMap.constKeyValueEnd(); ++kvp) {
     if (parser.isSet((*kvp).second))
       options |= (*kvp).first;
   }
 
-  Parser qmlFmt(options);
-  return qmlFmt.Run(parser.positionalArguments());
+  Foobar qmlParser(options);
+  return qmlParser.Run(parser.positionalArguments());
 }

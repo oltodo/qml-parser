@@ -1,11 +1,10 @@
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmljsast_p.h>
 
 #include "AstGeneratorBase.h"
 #include "Location.h"
 #include "parser.h"
 
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 Location::Location() {}
 

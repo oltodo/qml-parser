@@ -5,15 +5,14 @@
 
 #include <iostream>
 
-#include <qmljs/parser/qmljsastvisitor_p.h>
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmlengine_p.h>
+#include <private/qqmljsast_p.h>
 
 #include "Location.h"
 #include "parser.h"
 
 using namespace std;
-using namespace QmlJS;
-using namespace QmlJS::AST;
+using namespace QQmlJS::AST;
 
 struct lineColumn {
   int line = 1;
@@ -22,15 +21,15 @@ struct lineColumn {
 
 class AstGeneratorBase : protected Visitor {
 public:
-  AstGeneratorBase(Document::Ptr doc, int level);
+  AstGeneratorBase(QQmlJS::Engine *engine, int level);
 
 protected:
-  Document::Ptr doc;
+  QQmlJS::Engine *engine;
   int level;
 
   template <typename T1, typename T2>
   void print(const T1 &str, const T2 &extra) {
-    if (!Parser::debug) {
+    if (!Foobar::debug) {
       return;
     }
 
@@ -102,6 +101,8 @@ protected:
   QChar getCharAt(const int index);
   int getNextPrintableCharIndex(const int startFromIndex);
 
+  void throwRecursionDepthError() override {}
+
   bool visit(UiPragma *node) override;
   bool visit(UiImport *node) override;
   bool visit(UiObjectDefinition *node) override;
@@ -112,77 +113,78 @@ protected:
   bool visit(UiScriptBinding *node) override;
   bool visit(UiArrayBinding *node) override;
   bool visit(UiArrayMemberList *node) override;
-  bool visit(ThisExpression *node) override;
-  bool visit(NullExpression *node) override;
-  bool visit(TrueLiteral *node) override;
-  bool visit(FalseLiteral *node) override;
-  bool visit(IdentifierExpression *node) override;
-  bool visit(StringLiteral *node) override;
-  bool visit(NumericLiteral *node) override;
-  bool visit(RegExpLiteral *node) override;
-  bool visit(ArrayLiteral *node) override;
-  bool visit(ObjectLiteral *node) override;
-  bool visit(ElementList *node) override;
-  bool visit(PropertyAssignmentList *node) override;
-  bool visit(NestedExpression *node) override;
-  bool visit(IdentifierPropertyName *node) override;
-  bool visit(StringLiteralPropertyName *node) override;
-  bool visit(NumericLiteralPropertyName *node) override;
-  bool visit(ArrayMemberExpression *node) override;
-  bool visit(FieldMemberExpression *node) override;
-  bool visit(NewMemberExpression *node) override;
-  bool visit(NewExpression *node) override;
-  bool visit(CallExpression *node) override;
-  bool visit(PostIncrementExpression *node) override;
-  bool visit(PostDecrementExpression *node) override;
-  bool visit(PreIncrementExpression *node) override;
-  bool visit(PreDecrementExpression *node) override;
-  bool visit(DeleteExpression *node) override;
-  bool visit(VoidExpression *node) override;
-  bool visit(TypeOfExpression *node) override;
-  bool visit(UnaryPlusExpression *node) override;
-  bool visit(UnaryMinusExpression *node) override;
-  bool visit(TildeExpression *node) override;
-  bool visit(NotExpression *node) override;
-  bool visit(BinaryExpression *node) override;
-  bool visit(ConditionalExpression *node) override;
-  bool visit(Block *node) override;
-  bool visit(VariableStatement *node) override;
-  bool visit(VariableDeclaration *node) override;
-  bool visit(EmptyStatement *node) override;
-  bool visit(IfStatement *node) override;
-  bool visit(DoWhileStatement *node) override;
-  bool visit(WhileStatement *node) override;
-  bool visit(ForStatement *node) override;
-  bool visit(LocalForStatement *node) override;
-  bool visit(ForEachStatement *node) override;
-  bool visit(LocalForEachStatement *node) override;
-  bool visit(ContinueStatement *node) override;
-  bool visit(BreakStatement *node) override;
-  bool visit(ReturnStatement *node) override;
-  bool visit(ThrowStatement *node) override;
-  bool visit(WithStatement *node) override;
-  bool visit(SwitchStatement *node) override;
-  bool visit(CaseBlock *node) override;
-  bool visit(CaseClause *node) override;
-  bool visit(DefaultClause *node) override;
-  bool visit(LabelledStatement *node) override;
-  bool visit(TryStatement *node) override;
-  bool visit(Catch *node) override;
-  bool visit(Finally *node) override;
-  bool visit(FunctionDeclaration *node) override;
-  bool visit(FunctionExpression *node) override;
-  bool visit(UiHeaderItemList *node) override;
-  bool visit(UiObjectMemberList *node) override;
-  bool visit(UiQualifiedId *node) override;
-  bool visit(UiQualifiedPragmaId *node) override;
-  bool visit(Elision *node) override;
-  bool visit(ArgumentList *node) override;
-  bool visit(StatementList *node) override;
-  bool visit(SourceElements *node) override;
-  bool visit(VariableDeclarationList *node) override;
-  bool visit(CaseClauses *node) override;
-  bool visit(FormalParameterList *node) override;
+
+  // bool visit(ThisExpression *node) override;
+  // bool visit(NullExpression *node) override;
+  // bool visit(TrueLiteral *node) override;
+  // bool visit(FalseLiteral *node) override;
+  // bool visit(IdentifierExpression *node) override;
+  // bool visit(StringLiteral *node) override;
+  // bool visit(NumericLiteral *node) override;
+  // bool visit(RegExpLiteral *node) override;
+  // bool visit(ArrayLiteral *node) override;
+  // bool visit(ObjectLiteral *node) override;
+  // bool visit(ElementList *node) override;
+  // bool visit(PropertyAssignmentList *node) override;
+  // bool visit(NestedExpression *node) override;
+  // bool visit(IdentifierPropertyName *node) override;
+  // bool visit(StringLiteralPropertyName *node) override;
+  // bool visit(NumericLiteralPropertyName *node) override;
+  // bool visit(ArrayMemberExpression *node) override;
+  // bool visit(FieldMemberExpression *node) override;
+  // bool visit(NewMemberExpression *node) override;
+  // bool visit(NewExpression *node) override;
+  // bool visit(CallExpression *node) override;
+  // bool visit(PostIncrementExpression *node) override;
+  // bool visit(PostDecrementExpression *node) override;
+  // bool visit(PreIncrementExpression *node) override;
+  // bool visit(PreDecrementExpression *node) override;
+  // bool visit(DeleteExpression *node) override;
+  // bool visit(VoidExpression *node) override;
+  // bool visit(TypeOfExpression *node) override;
+  // bool visit(UnaryPlusExpression *node) override;
+  // bool visit(UnaryMinusExpression *node) override;
+  // bool visit(TildeExpression *node) override;
+  // bool visit(NotExpression *node) override;
+  // bool visit(BinaryExpression *node) override;
+  // bool visit(ConditionalExpression *node) override;
+  // bool visit(Block *node) override;
+  // bool visit(VariableStatement *node) override;
+  // bool visit(VariableDeclaration *node) override;
+  // bool visit(EmptyStatement *node) override;
+  // bool visit(IfStatement *node) override;
+  // bool visit(DoWhileStatement *node) override;
+  // bool visit(WhileStatement *node) override;
+  // bool visit(ForStatement *node) override;
+  // bool visit(LocalForStatement *node) override;
+  // bool visit(ForEachStatement *node) override;
+  // bool visit(LocalForEachStatement *node) override;
+  // bool visit(ContinueStatement *node) override;
+  // bool visit(BreakStatement *node) override;
+  // bool visit(ReturnStatement *node) override;
+  // bool visit(ThrowStatement *node) override;
+  // bool visit(WithStatement *node) override;
+  // bool visit(SwitchStatement *node) override;
+  // bool visit(CaseBlock *node) override;
+  // bool visit(CaseClause *node) override;
+  // bool visit(DefaultClause *node) override;
+  // bool visit(LabelledStatement *node) override;
+  // bool visit(TryStatement *node) override;
+  // bool visit(Catch *node) override;
+  // bool visit(Finally *node) override;
+  // bool visit(FunctionDeclaration *node) override;
+  // bool visit(FunctionExpression *node) override;
+  // bool visit(UiHeaderItemList *node) override;
+  // bool visit(UiObjectMemberList *node) override;
+  // bool visit(UiQualifiedId *node) override;
+  // bool visit(UiQualifiedPragmaId *node) override;
+  // bool visit(Elision *node) override;
+  // bool visit(ArgumentList *node) override;
+  // bool visit(StatementList *node) override;
+  // bool visit(SourceElements *node) override;
+  // bool visit(VariableDeclarationList *node) override;
+  // bool visit(CaseClauses *node) override;
+  // bool visit(FormalParameterList *node) override;
 };
 
 #endif // AST_GENERATOR_BASE_H

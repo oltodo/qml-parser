@@ -3,13 +3,12 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include <qmljs/qmljsdocument.h>
+#include <private/qqmljsast_p.h>
 
 #include "parser.h"
 
-using namespace QmlJS;
-using namespace QmlJS::AST;
-using namespace parser;
+using namespace QQmlJS::AST;
+using namespace Parser;
 
 class Location {
 protected:

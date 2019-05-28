@@ -1,9 +1,8 @@
 ﻿.vscode
-CMakeFiles
+
+.qmake.stash
+*.o
 Makefile
-*.cmake
-CMakeCache.txt
-*_autogen
-*.a
-test/testrunner
-sandbox/*.json
+
+qml-parser_plugin_import.cpp
+qml-parser_qml_plugin_import.cpp
