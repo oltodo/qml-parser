@@ -1,6 +1,6 @@
 {
   "name": "@oltodo/qml-parser",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A QML parser to generate AST documents",
   "main": "bin/index.js",
   "files": [
@@ -15,6 +15,6 @@
   "author": "Nicolas Bazille <nicolas.bazille@m6.fr>",
   "license": "MIT",
   "bin": {
-    "qml-parser": "./qml-parser"
+    "qml-parser": "./bin/qml-parser"
   }
 }
