@@ -28,6 +28,11 @@ Rectangle {
     property var someObject: Rectangle { width: 100; height: 100; color: "red" }
     // property color someColor: "blue"
 
+   property Toto.Tutu foobar
+   property list<Toto.Tutu> barfoo
+
+   signal test(Toto.Tutu arg)
+
     // // Default property
     // default property var someString: "abc"
 
