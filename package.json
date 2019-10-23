@@ -1,6 +1,6 @@
 {
   "name": "@oltodo/qml-parser",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A QML parser to generate AST documents",
   "main": "bin/index.js",
   "files": [
