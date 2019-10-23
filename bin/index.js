@@ -5,7 +5,7 @@ function escapeString(str) {
 }
 
 function parse(code) {
-  var bin = __dirname + "/qml-parser";
+  var bin = __dirname + "/qml-parser.app/Contents/MacOS/qml-parser";
 
   var result = execSync(bin + ' "' + escapeString(code) + '"');
   var ast = JSON.parse(result);
