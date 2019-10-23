@@ -199,7 +199,7 @@ bool AstGenerator::visit(UiParameterList *list) {
   for (UiParameterList *it = list; it; it = it->next) {
     json item;
 
-    item["type"] = toString(it->propertyTypeToken);
+    item["type"] = toString(it->type);
     item["identifier"] = toString(it->identifierToken);
 
     items.push_back(item);
@@ -232,7 +232,7 @@ bool AstGenerator::visit(UiPublicMember *node) {
     if (!node->typeModifier.isNull())
       item["typeModifier"] = toString(node->typeModifierToken);
 
-    item["type"] = toString(node->typeToken);
+    item["type"] = toString(node->memberType);
 
     if (node->statement) {
       item["identifier"] = toString(node->identifierToken);
