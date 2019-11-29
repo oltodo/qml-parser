@@ -16,6 +16,7 @@ import QtQuick 2.0
 // import "singleton/user/user.js" as User
 
 Rectangle {
+    id: self
     // signal clicked
     // signal hovered()
     // signal actionPerformed(

@@ -346,18 +346,28 @@ bool AstGenerator::visit(UiObjectBinding *node) {
 }
 
 bool AstGenerator::visit(UiScriptBinding *node) {
-  print("UiScriptBinding");
+  const string identifier = toString(node->qualifiedId);
+
+  print("UiScriptBinding", identifier);
 
   json item;
-  item["kind"] = "Attribute";
-  item["loc"];
-  item["identifier"] = toString(node->qualifiedId);
 
   AstGeneratorJavascriptBlock gen(engine, level + 1);
-  item["value"] = gen(node->statement);
+  const json value = gen(node->statement);
 
-  item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
-                          Location(item["value"]["loc"]));
+  if (identifier == "id") {
+    item["kind"] = "ObjectIdentifier";
+    item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
+                            node->statement->lastSourceLocation());
+    item["value"] = value["value"];
+  } else {
+    item["kind"] = "Attribute";
+    item["loc"];
+    item["identifier"] = identifier;
+    item["value"] = value;
+    item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
+                            Location(item["value"]["loc"]));
+  }
 
   ast = item;
 
