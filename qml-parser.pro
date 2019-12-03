@@ -60,9 +60,7 @@ OTHER_FILES += \
   sandbox/test_property_readonly.qml \
   sandbox/test_signal_multiple_args.qml \
   sandbox/test_signal_no_arg.qml \
-  sandbox/test_signal_single_arg.qml
-
-DISTFILES += \
+  sandbox/test_signal_single_arg.qml \
   sandbox/test_namespace.qml \
   sandbox/test_object_binding_array.qml \
   sandbox/test_object_binding_block.qml
