@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "identifier": "QtQuick",
+      "kind": "Import",
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+          "offset": 18,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "version": "2.0",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "identifier": "test",
+          "kind": "Property",
+          "loc": Object {
+            "end": Object {
+              "column": 34,
+              "line": 5,
+              "offset": 67,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 35,
+            },
+          },
+          "readonly": true,
+          "type": "int",
+          "value": Object {
+            "kind": "JavascriptValue",
+            "loc": Object {
+              "end": Object {
+                "column": 34,
+                "line": 5,
+                "offset": 67,
+              },
+              "start": Object {
+                "column": 31,
+                "line": 5,
+                "offset": 64,
+              },
+            },
+            "object": false,
+            "value": "123",
+          },
+        },
+      ],
+      "identifier": "Rectangle",
+      "kind": "ObjectDefinition",
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 7,
+          "offset": 71,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 3,
+          "offset": 20,
+        },
+      },
+    },
+  ],
+  "comments": Array [],
+  "kind": "Program",
+  "loc": Object {
+    "end": Object {
+      "column": 0,
+      "line": 8,
+      "offset": 72,
+    },
+    "start": Object {
+      "column": 0,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+}
+`;

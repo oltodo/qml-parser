@@ -16,5 +16,8 @@
   "license": "MIT",
   "bin": {
     "qml-parser": "./bin/qml-parser"
+  },
+  "devDependencies": {
+    "jest": "24.9.0"
   }
 }

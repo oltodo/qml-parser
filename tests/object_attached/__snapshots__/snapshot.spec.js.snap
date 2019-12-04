@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "identifier": "QtQuick",
+      "kind": "Import",
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+          "offset": 18,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "version": "2.0",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "identifier": "KeyNavigation.tab",
+          "kind": "Attribute",
+          "loc": Object {
+            "end": Object {
+              "column": 25,
+              "line": 5,
+              "offset": 58,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 35,
+            },
+          },
+          "value": Object {
+            "kind": "JavascriptValue",
+            "loc": Object {
+              "end": Object {
+                "column": 25,
+                "line": 5,
+                "offset": 58,
+              },
+              "start": Object {
+                "column": 21,
+                "line": 5,
+                "offset": 54,
+              },
+            },
+            "object": false,
+            "value": "this",
+          },
+        },
+        Object {
+          "identifier": "Keys.onEscapePressed",
+          "kind": "Attribute",
+          "loc": Object {
+            "end": Object {
+              "column": 3,
+              "line": 9,
+              "offset": 105,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 7,
+              "offset": 63,
+            },
+          },
+          "value": Object {
+            "kind": "JavascriptBlock",
+            "loc": Object {
+              "end": Object {
+                "column": 3,
+                "line": 9,
+                "offset": 105,
+              },
+              "start": Object {
+                "column": 24,
+                "line": 7,
+                "offset": 85,
+              },
+            },
+            "object": false,
+            "value": "{
+    Qt.quit ()
+  }",
+          },
+        },
+      ],
+      "identifier": "Rectangle",
+      "kind": "ObjectDefinition",
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 11,
+          "offset": 108,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 3,
+          "offset": 20,
+        },
+      },
+    },
+  ],
+  "comments": Array [],
+  "kind": "Program",
+  "loc": Object {
+    "end": Object {
+      "column": 0,
+      "line": 12,
+      "offset": 109,
+    },
+    "start": Object {
+      "column": 0,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+}
+`;
