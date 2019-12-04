@@ -3,4 +3,6 @@
 // Definitions by: oScape <https://github.com/oScape>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function parse(code: any): any;
+export function parse(code: string): object;
+
+export function parseFile(filepath: string): object;
