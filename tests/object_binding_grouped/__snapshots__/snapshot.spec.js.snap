@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "identifier": "QtQuick",
+      "kind": "Import",
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+          "offset": 18,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "version": "2.0",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "identifier": "border.width",
+          "kind": "Attribute",
+          "loc": Object {
+            "end": Object {
+              "column": 17,
+              "line": 5,
+              "offset": 50,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 35,
+            },
+          },
+          "value": Object {
+            "kind": "JavascriptValue",
+            "loc": Object {
+              "end": Object {
+                "column": 17,
+                "line": 5,
+                "offset": 50,
+              },
+              "start": Object {
+                "column": 16,
+                "line": 5,
+                "offset": 49,
+              },
+            },
+            "object": false,
+            "value": "1",
+          },
+        },
+        Object {
+          "identifier": "border.color",
+          "kind": "Attribute",
+          "loc": Object {
+            "end": Object {
+              "column": 21,
+              "line": 6,
+              "offset": 73,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 6,
+              "offset": 54,
+            },
+          },
+          "value": Object {
+            "kind": "JavascriptValue",
+            "loc": Object {
+              "end": Object {
+                "column": 21,
+                "line": 6,
+                "offset": 73,
+              },
+              "start": Object {
+                "column": 16,
+                "line": 6,
+                "offset": 68,
+              },
+            },
+            "object": false,
+            "value": "\\"red\\"",
+          },
+        },
+        Object {
+          "children": Array [
+            Object {
+              "identifier": "fill",
+              "kind": "Attribute",
+              "loc": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 9,
+                  "offset": 104,
+                },
+                "start": Object {
+                  "column": 4,
+                  "line": 9,
+                  "offset": 92,
+                },
+              },
+              "value": Object {
+                "kind": "JavascriptValue",
+                "loc": Object {
+                  "end": Object {
+                    "column": 16,
+                    "line": 9,
+                    "offset": 104,
+                  },
+                  "start": Object {
+                    "column": 10,
+                    "line": 9,
+                    "offset": 98,
+                  },
+                },
+                "object": false,
+                "value": "parent",
+              },
+            },
+            Object {
+              "identifier": "margins",
+              "kind": "Attribute",
+              "loc": Object {
+                "end": Object {
+                  "column": 16,
+                  "line": 10,
+                  "offset": 122,
+                },
+                "start": Object {
+                  "column": 4,
+                  "line": 10,
+                  "offset": 110,
+                },
+              },
+              "value": Object {
+                "kind": "JavascriptValue",
+                "loc": Object {
+                  "end": Object {
+                    "column": 16,
+                    "line": 10,
+                    "offset": 122,
+                  },
+                  "start": Object {
+                    "column": 13,
+                    "line": 10,
+                    "offset": 119,
+                  },
+                },
+                "object": false,
+                "value": "123",
+              },
+            },
+          ],
+          "identifier": "anchors",
+          "kind": "ObjectDefinition",
+          "loc": Object {
+            "end": Object {
+              "column": 3,
+              "line": 11,
+              "offset": 127,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 8,
+              "offset": 78,
+            },
+          },
+        },
+      ],
+      "identifier": "Rectangle",
+      "kind": "ObjectDefinition",
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 13,
+          "offset": 130,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 3,
+          "offset": 20,
+        },
+      },
+    },
+  ],
+  "comments": Array [],
+  "kind": "Program",
+  "loc": Object {
+    "end": Object {
+      "column": 0,
+      "line": 14,
+      "offset": 131,
+    },
+    "start": Object {
+      "column": 0,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+}
+`;

@@ -1,5 +1,6 @@
 ﻿.vscode
 
+node_modules
 .qmake.stash
 *.o
 Makefile

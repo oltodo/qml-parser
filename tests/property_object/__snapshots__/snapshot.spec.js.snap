@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "identifier": "QtQuick",
+      "kind": "Import",
+      "loc": Object {
+        "end": Object {
+          "column": 18,
+          "line": 1,
+          "offset": 18,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "version": "2.0",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "identifier": "test",
+          "kind": "Property",
+          "loc": Object {
+            "end": Object {
+              "column": 3,
+              "line": 7,
+              "offset": 100,
+            },
+            "start": Object {
+              "column": 2,
+              "line": 5,
+              "offset": 35,
+            },
+          },
+          "type": "QtObject",
+          "value": Object {
+            "children": Array [
+              Object {
+                "identifier": "objectName",
+                "kind": "Attribute",
+                "loc": Object {
+                  "end": Object {
+                    "column": 24,
+                    "line": 6,
+                    "offset": 95,
+                  },
+                  "start": Object {
+                    "column": 4,
+                    "line": 6,
+                    "offset": 75,
+                  },
+                },
+                "value": Object {
+                  "kind": "JavascriptValue",
+                  "loc": Object {
+                    "end": Object {
+                      "column": 24,
+                      "line": 6,
+                      "offset": 95,
+                    },
+                    "start": Object {
+                      "column": 16,
+                      "line": 6,
+                      "offset": 87,
+                    },
+                  },
+                  "object": false,
+                  "value": "\\"foobar\\"",
+                },
+              },
+            ],
+            "identifier": "QtObject",
+            "kind": "ObjectDefinition",
+            "loc": Object {
+              "end": Object {
+                "column": 3,
+                "line": 7,
+                "offset": 100,
+              },
+              "start": Object {
+                "column": 27,
+                "line": 5,
+                "offset": 60,
+              },
+            },
+          },
+        },
+      ],
+      "identifier": "Rectangle",
+      "kind": "ObjectDefinition",
+      "loc": Object {
+        "end": Object {
+          "column": 1,
+          "line": 9,
+          "offset": 103,
+        },
+        "start": Object {
+          "column": 0,
+          "line": 3,
+          "offset": 20,
+        },
+      },
+    },
+  ],
+  "comments": Array [],
+  "kind": "Program",
+  "loc": Object {
+    "end": Object {
+      "column": 0,
+      "line": 10,
+      "offset": 104,
+    },
+    "start": Object {
+      "column": 0,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+}
+`;
