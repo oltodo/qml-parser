@@ -1,9 +1,5 @@
 var execSync = require("child_process").execSync;
 
-function escapeString(str) {
-  return str.replace(/("|`)/g, "\\$1");
-}
-
 function execute(arg) {
   var bin = __dirname + "/qml-parser.app/Contents/MacOS/qml-parser";
 
@@ -18,7 +14,7 @@ function execute(arg) {
 }
 
 function parse(code) {
-  return execute('"' + escapeString(code) + '"');
+  return execute(Buffer.from(code).toString("base64"));
 }
 
 function parseFile(filepath) {

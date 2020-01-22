@@ -87,7 +87,11 @@ int Foobar::Run(QStringList args) {
 
     returnValue = this->InternalRun(code);
   } else {
-    const QString code = pathOrText;
+    QString code = pathOrText;
+    if (!pathOrText.trimmed().startsWith("import")) {
+      code = QString::fromUtf8(QByteArray::fromBase64(pathOrText.toLatin1()));
+    }
+
     returnValue = this->InternalRun(code);
   }
 
