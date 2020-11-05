@@ -8,4 +8,4 @@ Makefile
 *.log
 qml-parser_plugin_import.cpp
 qml-parser_qml_plugin_import.cpp
-
+bin/qml-parser
