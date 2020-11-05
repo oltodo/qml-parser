@@ -43,7 +43,8 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 OTHER_FILES += \
   bin/index.js \
-  create_package.sh \
+  scripts/package-for-mac.sh \
+  scripts/package-for-linux.sh \
   sandbox/test_function_multiple_args.qml \
   sandbox/test_function_no_arg.qml \
   sandbox/test_function_single_arg.qml \

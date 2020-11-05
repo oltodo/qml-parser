@@ -1,11 +1,11 @@
 ﻿.vscode
-
+.vagrant
 node_modules
+Makefile
 .qmake.stash
 *.o
-Makefile
-
+*.user*
+*.log
 qml-parser_plugin_import.cpp
 qml-parser_qml_plugin_import.cpp
-
-*.user*
+bin/qml-parser
