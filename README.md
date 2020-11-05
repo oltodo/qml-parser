@@ -1,3 +1,3 @@
 # QML Parser
 
-Works on MacOS only.
+Works for MacOS and Linux.
