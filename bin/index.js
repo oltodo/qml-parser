@@ -1,20 +1,20 @@
 var execSync = require("child_process").execSync;
-var os = require('os');
+var os = require("os");
 
 function getBinPath() {
-  switch(os.platform()) {
+  switch (os.platform()) {
     case "darwin":
       return __dirname + "/packages/macos/Contents/MacOS/qml-parser";
     case "linux":
       return __dirname + "/packages/linux/qml-parser";
     default:
-      throw new Error(`Unsupported ${os.platform()} platform.`)
+      throw new Error(`Unsupported ${os.platform()} platform.`);
   }
 }
 
 function execute(arg) {
   var bin = getBinPath();
-  var result = execSync(bin + " " + arg);
+  var result = execSync(bin + " " + arg, { maxBuffer: Infinity });
   var ast = JSON.parse(result);
 
   if (ast === null) {
@@ -34,5 +34,5 @@ function parseFile(filepath) {
 
 module.exports = {
   parse: parse,
-  parseFile: parseFile
+  parseFile: parseFile,
 };
