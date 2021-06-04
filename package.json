@@ -1,8 +1,11 @@
 {
-  "name": "@oltodo/qml-parser",
-  "version": "0.6.0",
+  "name": "@nbazille/qml-parser",
+  "version": "1.0.0",
   "description": "A QML parser to generate AST documents",
   "main": "bin/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "bin",
     "package.json",
