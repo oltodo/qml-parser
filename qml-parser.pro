@@ -5,7 +5,7 @@ QT -= gui
 CONFIG += c++11
 
 TARGET = qml-parser
-DESTDIR = bin
+DESTDIR = dist
 CONFIG += console
 CONFIG += no_lflags_merge
 CONFIG += app_bundle

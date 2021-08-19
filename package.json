@@ -8,6 +8,7 @@
   },
   "files": [
     "bin",
+    "scripts/install.js",
     "package.json",
     "README.md"
   ],
@@ -22,5 +23,15 @@
   },
   "devDependencies": {
     "jest": "24.9.0"
+  },
+  "dependencies": {
+    "dotenv": "10.0.0",
+    "fs-chmod": "1.0.6",
+    "node-fetch": "2.6.1",
+    "semver": "7.3.5",
+    "unzipper": "0.10.11"
+  },
+  "scripts": {
+    "install": "node scripts/install.js"
   }
 }
