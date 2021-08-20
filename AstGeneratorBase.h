@@ -12,6 +12,7 @@
 #include "parser.h"
 
 using namespace std;
+using namespace QQmlJS;
 using namespace QQmlJS::AST;
 
 struct lineColumn {
@@ -63,7 +64,7 @@ protected:
   }
 
   template <typename T, typename... Args>
-  json getLoc(const T &first, Args &... args) {
+  json getLoc(const T &first, Args &...args) {
     const Location loc = mergeLocs(first, args...);
 
     return loc.toJson();
@@ -111,6 +112,7 @@ protected:
   bool visit(UiScriptBinding *node) override;
   bool visit(UiArrayBinding *node) override;
   bool visit(UiArrayMemberList *node) override;
+  void throwRecursionDepthError() override;
 
   // bool visit(ThisExpression *node) override;
   // bool visit(NullExpression *node) override;

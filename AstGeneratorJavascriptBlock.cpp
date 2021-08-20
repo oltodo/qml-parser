@@ -7,23 +7,20 @@
 
 using namespace QQmlJS::AST;
 
-json AstGeneratorJavascriptBlock::operator()(Node *node) {
+json AstGeneratorJavascriptBlock::operator()(Statement *node) {
   accept(node);
 
-  string value = toString(loc);
-  QString qvalue = QString::fromStdString(value);
+  QString value = QString::fromStdString(toString(loc));
 
   bool isBlock = node->kind == node->Kind_Block;
+  bool isObject = !isBlock && value.startsWith('{') && value.endsWith('}');
+  bool hasSemicolon = !isBlock && value.endsWith(';');
+  Location newLoc = hasSemicolon ? loc - 1 : loc;
 
-  if (isBlock) {
-    ast["kind"] = "JavascriptBlock";
-  } else {
-    ast["kind"] = "JavascriptValue";
-  }
-
-  ast["loc"] = getLoc(loc);
-  ast["object"] = !isBlock && qvalue.startsWith('{') && qvalue.endsWith('}');
-  ast["value"] = value;
+  ast["kind"] = isBlock ? "JavascriptBlock" : "JavascriptValue";
+  ast["loc"] = getLoc(newLoc);
+  ast["object"] = isObject;
+  ast["value"] = toString(newLoc);
 
   return ast;
 }

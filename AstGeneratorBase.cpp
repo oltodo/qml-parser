@@ -147,6 +147,8 @@ bool AstGeneratorBase::visit(UiArrayMemberList *node) {
   return false;
 }
 
+void AstGeneratorBase::throwRecursionDepthError() {}
+
 // bool AstGeneratorBase::visit(ThisExpression *node) {
 //   print("ThisExpression", "not implemented");
 //   return false;

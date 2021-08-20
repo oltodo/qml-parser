@@ -7,6 +7,7 @@
 
 #include "parser.h"
 
+using namespace QQmlJS;
 using namespace QQmlJS::AST;
 using namespace Parser;
 
@@ -32,6 +33,8 @@ public:
 
   Location(SourceLocation const &loc);
 
+  Location(SourceLocation const &locStart, SourceLocation const &locEnd);
+
   Location(json const &loc);
 
   bool isValid() const;
@@ -39,6 +42,7 @@ public:
   operator json();
 
   Location operator+(int size);
+  Location operator-(int size);
 
   Location mergeWith(const Location &loc) const;
 

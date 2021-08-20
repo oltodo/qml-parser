@@ -9,6 +9,7 @@
 #include "parser.h"
 
 using namespace std;
+using namespace QQmlJS;
 using namespace QQmlJS::AST;
 
 void AstGenerator::accept(Node *node) { Node::accept(node, this); }
@@ -146,16 +147,18 @@ bool AstGenerator::visit(UiImport *node) {
 
   item["kind"] = "Import";
   item["loc"] =
-      getLoc(node->importToken, node->fileNameToken, node->versionToken,
-             node->asToken, node->importIdToken, node->semicolonToken);
+      getLoc(node->importToken, node->fileNameToken, node->version->majorToken,
+             node->version->minorToken, node->asToken, node->importIdToken,
+             node->semicolonToken);
 
   if (!node->fileName.isNull())
     item["path"] = toString(node->fileName);
   else
     item["identifier"] = toString(node->importUri);
 
-  if (node->versionToken.isValid())
-    item["version"] = toString(node->versionToken);
+  if (node->version)
+    item["version"] =
+        toString(node->version->majorToken, node->version->minorToken);
 
   if (!node->importId.isNull())
     item["as"] = toString(node->importIdToken);
@@ -357,8 +360,8 @@ bool AstGenerator::visit(UiScriptBinding *node) {
 
   if (identifier == "id") {
     item["kind"] = "ObjectIdentifier";
-    item["loc"] = mergeLocs(node->qualifiedId->firstSourceLocation(),
-                            node->statement->lastSourceLocation());
+    item["loc"] =
+        Location(node->firstSourceLocation(), node->lastSourceLocation());
     item["value"] = value["value"];
   } else {
     item["kind"] = "Attribute";

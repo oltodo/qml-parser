@@ -22,6 +22,12 @@ Location::Location(SourceLocation const &loc) {
   set(loc.startColumn - 1, loc.startLine, loc.offset, loc.length);
 }
 
+Location::Location(SourceLocation const &locStart, SourceLocation const &locEnd)
+    : startColumn(locStart.startColumn - 1), startLine(locStart.startLine),
+      startOffset(locStart.offset), endColumn(locEnd.startColumn - 1),
+      endLine(locEnd.startLine), endOffset(locEnd.offset),
+      length(locStart.length) {}
+
 Location::Location(json const &loc) {
   startColumn = loc["start"]["column"];
   startLine = loc["start"]["line"];
@@ -49,6 +55,10 @@ Location::operator json() { return toJson(); }
 Location Location::operator+(int size) {
   return Location(startColumn, startLine, startOffset, endColumn + size,
                   endLine, endOffset + size);
+}
+Location Location::operator-(int size) {
+  return Location(startColumn, startLine, startOffset, endColumn - size,
+                  endLine, endOffset - size);
 }
 
 Location Location::mergeWith(const Location &loc) const {
