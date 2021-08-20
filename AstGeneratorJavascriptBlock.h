@@ -21,7 +21,7 @@ protected:
   void postVisit(Node *node) override;
 
 public:
-  json operator()(Node *node);
+  json operator()(Statement *node);
 };
 
 #endif // AST_GENERATOR_JAVASCRIPT_BLOCK_H

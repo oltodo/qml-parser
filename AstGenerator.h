@@ -8,6 +8,7 @@
 #include "AstGeneratorBase.h"
 #include "parser.h"
 
+using namespace QQmlJS;
 using namespace QQmlJS::AST;
 
 class AstGenerator : protected AstGeneratorBase {
