@@ -146,10 +146,16 @@ bool AstGenerator::visit(UiImport *node) {
   json item;
 
   item["kind"] = "Import";
-  item["loc"] =
-      getLoc(node->importToken, node->fileNameToken, node->version->majorToken,
-             node->version->minorToken, node->asToken, node->importIdToken,
-             node->semicolonToken);
+
+  if (node->version) {
+    item["loc"] =
+        getLoc(node->importToken, node->fileNameToken,
+               node->version->majorToken, node->version->minorToken,
+               node->asToken, node->importIdToken, node->semicolonToken);
+  } else {
+    item["loc"] = getLoc(node->importToken, node->fileNameToken, node->asToken,
+                         node->importIdToken, node->semicolonToken);
+  }
 
   if (!node->fileName.isNull())
     item["path"] = toString(node->fileName);
