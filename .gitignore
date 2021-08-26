@@ -1,11 +1,12 @@
-﻿.vscode
-.vagrant
-node_modules
+﻿node_modules
 Makefile
+dist
+!dist/.gitkeep
+vendor
+
 .qmake.stash
 *.o
 *.user*
 *.log
 qml-parser_plugin_import.cpp
 qml-parser_qml_plugin_import.cpp
-bin/qml-parser

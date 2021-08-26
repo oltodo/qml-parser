@@ -1,19 +1,11 @@
 var execSync = require("child_process").execSync;
-var os = require("os");
 
-function getBinPath() {
-  switch (os.platform()) {
-    case "darwin":
-      return __dirname + "/packages/macos/Contents/MacOS/qml-parser";
-    case "linux":
-      return __dirname + "/packages/linux/qml-parser";
-    default:
-      throw new Error(`Unsupported ${os.platform()} platform.`);
-  }
-}
+require("dotenv").config();
+
+const binPath = process.env.QML_PARSER_BIN_PATH || `${__dirname}/../vendor`;
 
 function execute(arg) {
-  var bin = getBinPath();
+  var bin = `${binPath}/qml-parser`;
   var result = execSync(bin + " " + arg, { maxBuffer: Infinity });
   var ast = JSON.parse(result);
 

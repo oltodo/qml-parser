@@ -1,13 +1,30 @@
 name: CI
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-18.04
+            platform: linux
+          - os: macos-latest
+            platform: darwin
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
+
       - uses: actions/setup-node@v2
+
+      - name: Build app
+        uses: ./.github/actions/build
+        with:
+          with-package: false
+
       - run: yarn install
       - run: yarn jest
