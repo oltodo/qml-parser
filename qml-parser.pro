@@ -40,28 +40,3 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
-OTHER_FILES += \
-  bin/index.js \
-  scripts/package-for-mac.sh \
-  scripts/package-for-linux.sh \
-  sandbox/test_function_multiple_args.qml \
-  sandbox/test_function_no_arg.qml \
-  sandbox/test_function_single_arg.qml \
-  sandbox/test_object_attached.qml \
-  sandbox/test_object_binding.qml \
-  sandbox/test_object_binding_grouped.qml \
-  sandbox/test_object_nested.qml \
-  sandbox/test_object_on.qml \
-  sandbox/test_property.qml \
-  sandbox/test_property_alias.qml \
-  sandbox/test_property_default.qml \
-  sandbox/test_property_list.qml \
-  sandbox/test_property_object.qml \
-  sandbox/test_property_readonly.qml \
-  sandbox/test_signal_multiple_args.qml \
-  sandbox/test_signal_no_arg.qml \
-  sandbox/test_signal_single_arg.qml \
-  sandbox/test_namespace.qml \
-  sandbox/test_object_binding_array.qml \
-  sandbox/test_object_binding_block.qml

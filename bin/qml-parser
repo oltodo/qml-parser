@@ -1,0 +1,5 @@
+#!/bin/bash
+
+binPath="$(node -e "console.log(process.env.OLDPWD)")/vendor"
+
+$binPath/qml-parser $@

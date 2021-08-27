@@ -35,7 +35,9 @@ function getBinaryUrl() {
 
   console.log("**INFO** Downloading binary from", binaryUrl);
 
-  fs.rmdirSync(installPath, { recursive: true });
+  if (fs.existsSync(installPath)) {
+    fs.rmdirSync(installPath, { recursive: true });
+  }
   fs.mkdirSync(installPath);
 
   const res = await fetch(binaryUrl);
