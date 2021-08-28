@@ -12,8 +12,13 @@ jobs:
         include:
           - os: ubuntu-18.04
             platform: linux
+            binPath: dist
           - os: macos-latest
             platform: darwin
+            binPath: dist/qml-parser.app/Contents/MacOS
+    env:
+      QML_PARSER_DISABLE_DOWNLOAD: 1
+      QML_PARSER_BIN_PATH: ${{ matrix.binPath }}
     steps:
       - uses: actions/checkout@v2
         with:
