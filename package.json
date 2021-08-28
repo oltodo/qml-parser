@@ -1,6 +1,6 @@
 {
   "name": "@nbazille/qml-parser",
-  "version": "0.0.0",
+  "version": "2.1.0",
   "description": "A QML parser to generate AST documents",
   "main": "src/index.js",
   "publishConfig": {
