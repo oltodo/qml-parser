@@ -1,4 +1,5 @@
 var execSync = require("child_process").execSync;
+var lz = require("lz-string");
 
 require("dotenv").config();
 
@@ -17,7 +18,7 @@ function execute(arg) {
 }
 
 function parse(code) {
-  return execute(Buffer.from(code).toString("base64"));
+  return execute(lz.compressToBase64(code));
 }
 
 function parseFile(filepath) {

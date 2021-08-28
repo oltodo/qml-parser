@@ -1,7 +1,8 @@
-const { parseFile } = require("../../bin");
+const fs = require("fs");
+const { parse } = require("../../src");
 
 it("renders correctly", () => {
-  const ast = parseFile(`${__dirname}/entry.qml`);
+  const ast = parse(fs.readFileSync(`${__dirname}/entry.qml`).toString());
 
   expect(ast).toMatchSnapshot();
 });
