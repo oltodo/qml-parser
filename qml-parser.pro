@@ -25,10 +25,12 @@ SOURCES += parser.h \
            AstGeneratorJavascriptBlock.cpp \
            AstGeneratorJavascriptBlock.h \
            Location.cpp \
-           Location.h
+           Location.h \
+           3rdparty/lz-string/src/lzstring.h \
+           3rdparty/lz-string/src/lzstring.cpp
 
 INCLUDEPATH += 3rdparty/json/include \
-               3rdparty/ordered-map/include \
+               3rdparty/ordered-map/include
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings

@@ -12,6 +12,8 @@
 #include <private/qqmljsparser_p.h>
 #include <private/qv4value_p.h>
 
+#include <3rdparty/lz-string/src/lzstring.h>
+
 #include "AstGenerator.h"
 #include "parser.h"
 
@@ -89,7 +91,7 @@ int Foobar::Run(QStringList args) {
   } else {
     QString code = pathOrText;
     if (!pathOrText.trimmed().startsWith("import")) {
-      code = QString::fromUtf8(QByteArray::fromBase64(pathOrText.toLatin1()));
+      code = LZString::decompressFromBase64(code);
     }
 
     returnValue = this->InternalRun(code);

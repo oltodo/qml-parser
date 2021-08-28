@@ -4,3 +4,6 @@
 [submodule "3rdparty/ordered-map"]
 	path = 3rdparty/ordered-map
 	url = https://github.com/Tessil/ordered-map.git
+[submodule "3rdparty/lz-string"]
+	path = 3rdparty/lz-string
+	url = https://github.com/amiart/qt-lzstring.git
