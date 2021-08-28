@@ -3,6 +3,7 @@ Makefile
 dist
 !dist/.gitkeep
 vendor
+.env
 
 .qmake.stash
 *.o
