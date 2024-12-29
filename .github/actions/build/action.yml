@@ -10,24 +10,32 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-python@v5
+      with:
+          python-version: '3.12' 
     - name: Install Qt
       shell: bash
       run: |
         set -o xtrace
 
         if [[ "$RUNNER_OS" == "Linux" ]]; then
-          sudo add-apt-repository ppa:beineri/opt-qt-${{ inputs.qt-version }}-bionic
+          sudo add-apt-repository ppa:beineri/opt-qt-5.15.2-focal
           sudo apt-get update
           sudo apt-get install -y build-essential qt515base qt515declarative
           echo "PATH=/opt/qt515/bin:$PATH" >> $GITHUB_ENV
         else
-          brew install p7zip
-          python3 -m pip install setuptools wheel
-          python3 -m pip install py7zr==0.16.1
-          python3 -m pip install aqtinstall==1.2.5
-          python3 -m aqt install ${{ inputs.qt-version }} mac desktop -m qtdeclarative -O $RUNNER_WORKSPACE/Qt
-          ls -la $RUNNER_WORKSPACE/Qt/${{ inputs.qt-version }}/clang_64/bin
-          echo "PATH=$RUNNER_WORKSPACE/Qt/${{ inputs.qt-version }}/clang_64/bin:$PATH" >> $GITHUB_ENV
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install pyzstd
+          pip install setuptools wheel
+          pip install py7zr==0.16.1
+          # pip install aqtinstall==1.2.5
+          # aqt install ${{ inputs.qt-version }} mac desktop -m qtdeclarative -O $RUNNER_WORKSPACE/Qt
+          brew install qt@5
+          brew link qt5 --force
+          echo "PATH=$(brew --prefix qt@5)/bin:$PATH" >> $GITHUB_ENV
+          # ls -la $RUNNER_WORKSPACE/Qt/${{ inputs.qt-version }}/clang_64/bin
+          # echo "PATH=$RUNNER_WORKSPACE/Qt/${{ inputs.qt-version }}/clang_64/bin:$PATH" >> $GITHUB_ENV
         fi
 
     - name: Install linuxdeployqt (Linux only)
@@ -41,7 +49,7 @@ runs:
           sudo chmod a+x /usr/bin/linuxdeployqt
         fi
 
-    - run: qmake -config release
+    - run: qmake -config release 2>&1 | cat
       shell: bash
 
     - run: make clean

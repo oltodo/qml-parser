@@ -6,7 +6,7 @@ require("dotenv").config();
 const binPath = process.env.QML_PARSER_BIN_PATH || `${__dirname}/../vendor`;
 
 function execute(arg) {
-  var bin = `${binPath}/qml-parser`;
+  var bin = `${binPath}`;
   var result = execSync(bin + " " + arg, { maxBuffer: Infinity });
   var ast = JSON.parse(result);
 

@@ -10,12 +10,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-18.04
+          - os: windows-latest
+            platform: windows
+            binPath: dist\qml-parser.exe
+          - os: ubuntu-20.04
             platform: linux
-            binPath: dist
-          - os: macos-latest
+            binPath: dist/qml-parser
+          - os: macos-13
             platform: darwin
-            binPath: dist/qml-parser.app/Contents/MacOS
+            binPath: dist/qml-parser.app/Contents/MacOS/qml-parser
     env:
       QML_PARSER_DISABLE_DOWNLOAD: 1
       QML_PARSER_BIN_PATH: ${{ matrix.binPath }}
@@ -26,10 +29,15 @@ jobs:
 
       - uses: actions/setup-node@v2
 
-      - name: Build app
+      # - name: Build app
+      #   if: ${{ matrix.os == 'windows-latest' }}
+      #   uses: ./.github/actions/winbuild
+
+      - name: Build app for other platforms
+        if: ${{ matrix.os != 'windows-latest' }}
         uses: ./.github/actions/build
         with:
           with-package: false
 
-      - run: yarn install
-      - run: yarn jest
+#      - run: yarn install
+#      - run: yarn jest
